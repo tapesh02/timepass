@@ -5,7 +5,6 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { IconButton } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import InputBase from '@material-ui/core/InputBase';
 import TextField from '@material-ui/core/TextField';
 
 
@@ -23,12 +22,12 @@ const Navbar = () =>{
             <TextField
         id="input-with-icon-textfield"
         className= "searchTextStyle"
-        size= "Small"
+        size= "small"
         placeholder="search"
         InputProps={{
                 startAdornment: (
                     <InputAdornment position="start">
-                    <SearchIcon />
+                    <SearchIcon style={{color:'white'}} />
                     </InputAdornment>
                 ),
                 }}

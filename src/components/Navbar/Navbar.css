@@ -33,7 +33,7 @@
     padding: 5px;
     margin: 5px;
 }
-.MuiInputBase-input, .MuiSvgIcon-root{
+.searchTextStyle .MuiInputBase-input, .account_icon .MuiSvgIcon-root{
     color: rgb(216, 216, 216) !important;
 }
 
