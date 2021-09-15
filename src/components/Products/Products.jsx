@@ -489,7 +489,7 @@ const Produts = () =>{
                    <CardActions >
                        <Button className = {classes.cardButton} >Watch</Button>
                        <Button className = {classes.cardButton}>Like</Button>
-                       <Button className = {classes.cardButton}>Share</Button>
+                       <Button className = {classes.cardButton}>Rent</Button>
                    </CardActions>
                </Card>
                  );
