@@ -1,16 +1,19 @@
-import React from 'react';
-import {Divider, IconButton} from '@material-ui/core';
+import React, {useState} from 'react';
+import {Divider, IconButton, InputAdornment, FormControl, OutlinedInput, InputLabel, Button} from '@material-ui/core';
+
 //import youtubeSvg from '../../images/youtubesvg'; use ../../ to go back to the original directory i.e src/components or src/images etc
 import youtubePng from '../../images/youtube.png';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 import ShareIcon from '@material-ui/icons/Share';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
-
+import ContactMailIcon from '@material-ui/icons/ContactMail';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
 const homeStyle = ({
 
     background_image:{
-        backgroundImage: "url(" + "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"+")",
+        backgroundImage: "url(" + "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"+")"  ,
         backgroudPosition: 'center center',
         backgroundSize: 'cover', 
         backgroudRepeat: 'no-repeat',
@@ -53,11 +56,15 @@ const signinstyle = ({
     },
 
     signin_form: {
-        width: '50%',
+        width: '30%',
         height: '90%',
         margin: '15px',
         padding: '5px',
-        backgroundColor: 'purple'
+        color: 'black',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-end',
+        justifyContent: 'center',
     },
 
     youtube_image:{
@@ -72,10 +79,43 @@ const signinstyle = ({
         justifyContent: 'center',
         marginTop: '-20px',
         color: 'black'
+    },
+
+    buttons_main:{
+       margin:'15px'
+    },
+
+    button_icons: {
+        backgroundColor: '#356E44',
+        textTransform: 'capitalize',
+        margin: '5px',
+        color: 'white',
     }
 
 });
 const Signin = () => {
+
+    //useStateObject Example
+        const [values, setValues] = useState(
+            {
+                password: '',
+                showPassword: false,
+                email: '',
+            }
+        );
+
+        const showChangeValues = (props) => (event) => {
+            setValues({...values, [props]: event.target.value}); 
+        };
+
+        const OnclickButton = () => {
+            setValues ({...values, showPassword : !values.showPassword})
+        };
+
+        const onMouseDownChange = (event) => {
+            event.preventDefault();
+        };
+
     return(
         <>
         <section>
@@ -100,7 +140,70 @@ const Signin = () => {
                     </div>
                 </div>
                 <Divider orientation="vertical" variant="middle"/>
-                <div style = {signinstyle.signin_form}><h1 >SignIn Form</h1></div>
+                <div style = {signinstyle.signin_form}>
+                    <h3>Hi!..MovieHunt </h3>
+                    <FormControl
+                     id="outlined-size-small"
+                     variant = "outlined"
+                     size = "small"
+                     style ={{margin:'15px'}}
+                     >                       
+
+                        <InputLabel htmlFor="outlined-adornment-email" style ={{margin:'-15px'}}>
+                           Email
+                        </InputLabel>
+                        <OutlinedInput
+                            id = "outlined-adornment-email"
+                            startAdornment = {
+                                <InputAdornment position="start">
+                                    <IconButton style ={{margin:'-15px'}}>
+                                        <ContactMailIcon/>
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                            />          
+                    </FormControl>
+                    <FormControl 
+                     id="outlined-size-small"
+                     variant = "outlined"
+                     size = "small"
+                     style ={{margin:'15px'}}
+                     >
+                        <InputLabel htmlFor="outlined-adornment-password" style ={{margin:'-15px'}}>
+                            Password
+                        </InputLabel>
+                        <OutlinedInput
+                            id = "outlined-adornment-password"
+                            type = {values.showPassword ? 'text': 'password'}
+                            onChange = {showChangeValues('password')}
+                            startAdornment = {
+                                <InputAdornment position="start">
+                                    <IconButton
+                                    onClick ={OnclickButton}
+                                    onMouseDown = {onMouseDownChange}
+                                    style ={{margin:'-15px',}}
+                                    >
+                                    {values.showPassword ? <VisibilityIcon/> : <VisibilityOffIcon/>} 
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                            />          
+                    </FormControl>
+                    <div style = {signinstyle.buttons_main}>
+                    <Button 
+                    variant="contained"
+                    size = "small"
+                    style ={{textTransform: 'capitalize', margin: '5px'}}
+                    >Signup
+                    </Button>
+                    <Button 
+                    variant="contained"
+                    size = "small"
+                    style = {signinstyle.button_icons}
+                    >Signin
+                    </Button>
+                    </div>
+                </div>
             </div>
             </div>
         </section>
