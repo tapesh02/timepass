@@ -20,6 +20,7 @@ const Navbar = () =>{
             </div>
             <div className="search_main">
             <TextField
+<<<<<<< HEAD
                 id="input-with-icon-textfield"
                 className= "searchTextStyle"
                 size= "Small"
@@ -32,6 +33,20 @@ const Navbar = () =>{
                         ),
                         }}
                         variant="standard"
+=======
+        id="input-with-icon-textfield"
+        className= "searchTextStyle"
+        size= "small"
+        placeholder="search"
+        InputProps={{
+                startAdornment: (
+                    <InputAdornment position="start">
+                    <SearchIcon style={{color:'white'}} />
+                    </InputAdornment>
+                ),
+                }}
+                variant="standard"
+>>>>>>> 125471029d11f6b72b92ec086959ffabbf4f0589
             />
             </div>
             <div className="nav_menu">
