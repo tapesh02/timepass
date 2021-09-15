@@ -432,9 +432,9 @@ const Produts = () =>{
             }
     ]);
 
-    const [ratingValue, setRatingValue] = useState(2);
+    const [ratingValue, setRatingValue] = useState()
     
-//the below is an api which needs to be uncommented when final disgn is ready 
+//the below is an api which needs to be uncommented when final design is ready 
     // useEffect (()=> {
         // const getMovieList  = async () => {
 
@@ -489,7 +489,7 @@ const Produts = () =>{
                    <CardActions >
                        <Button className = {classes.cardButton} >Watch</Button>
                        <Button className = {classes.cardButton}>Like</Button>
-                       <Button className = {classes.cardButton}>Rent</Button>
+                       <Button className = {classes.cardButton}>Share</Button>
                    </CardActions>
                </Card>
                  );
