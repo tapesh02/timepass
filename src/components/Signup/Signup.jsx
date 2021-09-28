@@ -17,7 +17,7 @@ import youtube from '../../images/youtube.png'
 const useStyles = makeStyles (theme =>({
     
     background_image:{
-        backgroundImage: "url(" + "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"+")",
+        backgroundImage: `url(${"https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"})`,
         backgroudPosition: 'center center',
         backgroundSize: 'cover', 
         backgroudRepeat: 'no-repeat',
@@ -103,8 +103,7 @@ const Signup = () => {
         <>
         <section>
             <div className={classes.background_image} >
-                        <div className="main_bg"
-                className = {classes.background_color}   >
+                        <div className = {classes.background_color}   >
             </div>
 
             <div className = {classes.signup_bg}>

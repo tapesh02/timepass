@@ -3,6 +3,8 @@ import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Typo
 import Rating from '@material-ui/lab/Rating';
 
 
+
+
 const useStyles = makeStyles (theme => ({
     cardButton:{
         '&:hover':{
@@ -47,12 +49,13 @@ const useStyles = makeStyles (theme => ({
 }));
 
 
-const Produts = () =>{
+const Produts = (props) =>{
 
+    
     const classes = useStyles();
     
     const [movieData, setMovieData] = useState([
-        //the below is an fake api data which needs to be deleted when final disgn is ready and add real api from useEffect
+        // the below is an fake api data which needs to be deleted when final disgn is ready and add real api from useEffect
         {
             "adult": false,
             "backdrop_path": "/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg",
@@ -213,232 +216,28 @@ const Produts = () =>{
             "video": false,
             "vote_average": 6.8,
             "vote_count": 251
-            },
-            {
-            "adult": false,
-            "backdrop_path": null,
-            "genre_ids": [
-            35
-            ],
-            "id": 347158,
-            "original_language": "en",
-            "original_title": "Bikini Avengers",
-            "overview": "When the Jade Empress steals the world's largest diamonds, super heroes Bikini Avenger and Thong Girl must stop her before she uses the gems to build a dangerous sci-fi weapon.",
-            "popularity": 17.056,
-            "poster_path": "/ehTYWuPKwl8sXPX0I6LnvJUDaVl.jpg",
-            "release_date": "2015-02-24",
-            "title": "Bikini Avengers",
-            "video": false,
-            "vote_average": 5.8,
-            "vote_count": 14
-            },
-            {
-            "adult": false,
-            "backdrop_path": "/gCzHEi6g8K0LIWlr6A38fmgtEfb.jpg",
-            "genre_ids": [
-            16,
-            10751
-            ],
-            "id": 14613,
-            "original_language": "en",
-            "original_title": "Next Avengers: Heroes of Tomorrow",
-            "overview": "The children of the Avengers hone their powers and go head to head with the very enemy responsible for their parents' demise.",
-            "popularity": 27.636,
-            "poster_path": "/4NL4vwuh6AlwgGoNNlhVp52DRfi.jpg",
-            "release_date": "2008-09-02",
-            "title": "Next Avengers: Heroes of Tomorrow",
-            "video": false,
-            "vote_average": 6.8,
-            "vote_count": 171
-            },
-            {
-            "adult": false,
-            "backdrop_path": "/sORO7a1cSghfWE5GD4cSJ0qTN8O.jpg",
-            "genre_ids": [
-            28,
-            12,
-            14
-            ],
-            "id": 521720,
-            "original_language": "en",
-            "original_title": "Avengers Grimm: Time Wars",
-            "overview": "When Rumpelstiltskin tries to take over Earth once and for all, The Avengers Grimm must track him down through time in order to defeat him.",
-            "popularity": 16.38,
-            "poster_path": "/xfAcu74DRQXeM9XqFcE5MrSRzYP.jpg",
-            "release_date": "2018-05-01",
-            "title": "Avengers Grimm: Time Wars",
-            "video": false,
-            "vote_average": 5,
-            "vote_count": 42
-            },
-            {
-            "adult": false,
-            "backdrop_path": "/6zXs4OyZM6U4reYvddsJWeByxMX.jpg",
-            "genre_ids": [
-            99
-            ],
-            "id": 448366,
-            "original_language": "en",
-            "original_title": "Building the Dream: Assembling the Avengers",
-            "overview": "Witness Marvel's epic journey, from its comic book origins to its blockbuster film franchises, through seven exclusive featurettes. Get the inside story, with exclusive behind-the-scenes footage and cast interviews, and discover the history behind its legendary characters and films -- Iron Man, The Incredible Hulk, Iron Man 2, Thor, Captain America: The First Avenger, and Marvel's The Avengers! With over 90 minutes of original footage, this is your all-access pass to Marvel and Phase One of the Marvel Cinematic Universe!",
-            "popularity": 18.614,
-            "poster_path": "/coS6rIaucxDzq20kiJozTgQ0Nmk.jpg",
-            "release_date": "2012-09-25",
-            "title": "Building the Dream: Assembling the Avengers",
-            "video": true,
-            "vote_average": 8.6,
-            "vote_count": 20
-            },
-            {
-            "adult": false,
-            "backdrop_path": "/tLYc6glAh12z437Om7ZZxg6CcKA.jpg",
-            "genre_ids": [
-            10751,
-            16
-            ],
-            "id": 368304,
-            "original_language": "en",
-            "original_title": "LEGO Marvel Super Heroes: Avengers Reassembled!",
-            "overview": "The Avengers are forced to “party” with Ultron when he seeks to disassemble the team by taking control of Iron Man’s armor and enact a nefarious scheme to take over the world.",
-            "popularity": 16.883,
-            "poster_path": "/xUBZNoY7idPfqKZepnDEv7Qc8GC.jpg",
-            "release_date": "2015-11-16",
-            "title": "LEGO Marvel Super Heroes: Avengers Reassembled!",
-            "video": false,
-            "vote_average": 6.2,
-            "vote_count": 75
-            },
-            {
-            "adult": false,
-            "backdrop_path": null,
-            "genre_ids": [],
-            "id": 448368,
-            "original_language": "en",
-            "original_title": "The Avengers: A Visual Journey",
-            "overview": "Joss Whedon and others in interviews discussing the aims for this new franchise.",
-            "popularity": 12.057,
-            "poster_path": "/2kBT7KONKQTIhkMc2ZtPU11E8Ky.jpg",
-            "release_date": "2012-09-25",
-            "title": "The Avengers: A Visual Journey",
-            "video": true,
-            "vote_average": 8.2,
-            "vote_count": 10
-            },
-            {
-            "adult": false,
-            "backdrop_path": null,
-            "genre_ids": [],
-            "id": 865648,
-            "original_language": "en",
-            "original_title": "Avengers Endgame: Bonus Feature Documentary",
-            "overview": "1) Remembering Stan Lee\r 2) Setting The Tone: Casting Robert Downey Jr.\r 3) A Man Out of Time: Creating Captain America\r 4) The Women of the MCU\r 5) Black Widow: Whatever It Takes\r 6) The Russo Brothers: Journey to Endgame",
-            "popularity": 6.406,
-            "poster_path": "/tfrSNWGEbl8gjoEaWR4NfgmFQHK.jpg",
-            "release_date": "",
-            "title": "Avengers Endgame: Bonus Feature Documentary",
-            "video": false,
-            "vote_average": 0,
-            "vote_count": 0
-            },
-            {
-            "adult": false,
-            "backdrop_path": null,
-            "genre_ids": [],
-            "id": 866238,
-            "original_language": "en",
-            "original_title": "Avengers: Infinity War",
-            "overview": "As the Avengers and their allies have continued to protect the world from threats too large for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A despot of intergalactic infamy, his goal is to collect all six Infinity Stones, artifacts of unimaginable power, and use them to inflict his twisted will on all of reality. Everything the Avengers have fought for has led up to this moment - the fate of Earth and existence itself has never been more uncertain.",
-            "popularity": 3.514,
-            "poster_path": null,
-            "release_date": "",
-            "title": "Avengers: Infinity War",
-            "video": false,
-            "vote_average": 0,
-            "vote_count": 0
-            },
-            {
-            "adult": false,
-            "backdrop_path": "/7dxHsaSxrkowFFmg7gInn0l9sh2.jpg",
-            "genre_ids": [
-            35,
-            14
-            ],
-            "id": 538153,
-            "original_language": "en",
-            "original_title": "Avengers of Justice: Farce Wars",
-            "overview": "While trying to remain a good husband and father, Superbat and the Avengers of Justice come out of retirement to stop Dark Jokester and Lisp Luthor from freezing the planet.",
-            "popularity": 5.109,
-            "poster_path": "/yymsCwKPbJIF1xcl2ih8fl7OxAa.jpg",
-            "release_date": "2018-07-20",
-            "title": "Avengers of Justice: Farce Wars",
-            "video": false,
-            "vote_average": 4.6,
-            "vote_count": 8
-            },
-            {
-            "adult": false,
-            "backdrop_path": null,
-            "genre_ids": [
-            12
-            ],
-            "id": 432413,
-            "original_language": "en",
-            "original_title": "The Avengers",
-            "overview": "The attractive Argentine Don Careless is an adventurer and an excellent swordsman. Don is in love with Maria Moreno, since he had to emerge her jewels and had thereby to kill a shark. Don tries to prevent the forced marriage of Mary with the ruthless revolutionary Colonel Luis Corral. An armed clash between Don and Luis seems inevitable.",
-            "popularity": 1.825,
-            "poster_path": null,
-            "release_date": "1950-06-10",
-            "title": "The Avengers",
-            "video": false,
-            "vote_average": 10,
-            "vote_count": 1
-            },
-            {
-            "adult": false,
-            "backdrop_path": "/boX7D2wHtf01C7AzzPuVZAzc74x.jpg",
-            "genre_ids": [
-            35,
-            878
-            ],
-            "id": 58906,
-            "original_language": "en",
-            "original_title": "Alien Avengers",
-            "overview": "Charlie and Rhonda are a sweet and comfortable married couple on vacation with their lovely daughter Daphne. They find a rundown boarding house and its haggard owner, Joseph, an ex-con whose mother has just died and left him the house. He doesn't know why this cheerful couple would want to vacation in the worst part of Los Angeles, but he doesn't know they're vacationing from outer space, and their idea of fun is murdering lowlife out on the streets",
-            "popularity": 1.273,
-            "poster_path": "/Akd3Aqrr2q8PLKOCPOkOnB3AoJk.jpg",
-            "release_date": "1996-08-03",
-            "title": "Alien Avengers",
-            "video": false,
-            "vote_average": 5.3,
-            "vote_count": 4
-            },
-            {
-            "adult": false,
-            "backdrop_path": null,
-            "genre_ids": [
-            28
-            ],
-            "id": 416101,
-            "original_language": "en",
-            "original_title": "Ninja Avengers",
-            "overview": "Just like those Thomas Tang \"so-called\" Ninja films that came out on Imperial Video. This one has a tacked in plot of Richard Harrison trying to fight off European Ninjas in footage that doesn't even match the film! The whole film is basically a RED SUN rip-off (but this time the Japanese steal a statue) that has a DJANGO like character carrying a cross that contains a gattling gun.",
-            "popularity": 1.201,
-            "poster_path": "/acmrVRQXQKFGs6ExSVUuRys1yxv.jpg",
-            "release_date": "1987-01-01",
-            "title": "Ninja Avengers",
-            "video": false,
-            "vote_average": 5.7,
-            "vote_count": 3
             }
-    ]);
+            
+     ]);
+     
+     const filterData = ((val) => {
 
-    const [ratingValue, setRatingValue] = useState()
+         const keyword = props.searchText;
+
+         if (keyword === "" || keyword === undefined ) {
+             return val
+         } else if (val.original_title?.toLowerCase().includes(props.searchText?.toLowerCase())) {
+             return val
+         } 
+      } );
+
+    
     
 //the below is an api which needs to be uncommented when final design is ready 
-    // useEffect (()=> {
+    useEffect (()=> {
         // const getMovieList  = async () => {
 
-        //     const url = 'http://api.themoviedb.org/3/search/movie?api_key=4a58ed5793dfdd5f2f1efc2069cdc112&query=Avengers';
+        //     const url = `http://api.themoviedb.org/3/search/movie?api_key=4a58ed5793dfdd5f2f1efc2069cdc112&query=${props.searchText}`;
     
         //     const response = await fetch (url);
         //             try {
@@ -450,14 +249,16 @@ const Produts = () =>{
         //             }
             
         // };
-    //  getMovieList();
-    // }, []);
+     //getMovieList();
+ }, [props.searchText]);
+
+
 
 
     return (
         <> 
             <div className={classes.main}> 
-            {movieData.map((movie) =>{
+            {movieData.filter(filterData).map((movie) =>{
                  return(
                     <Card className={classes.cardMain} key={movie.id}>
                    <CardActionArea>
@@ -477,19 +278,17 @@ const Produts = () =>{
                            <Rating 
                                 className = {classes.typography2} 
                                 name = "ratings"
-                                value = {ratingValue}
-                                readOnly
-                                // onChange = {(event, newRating) => {
-                                //   setRatingValue(newRating);
-                                // }}
-
+                                value =  {movie.vote_average/2} 
+                                precision={0.5}
+                                readOnly                                
                            />  
+                          
                        </CardContent>
                    </CardActionArea>
                    <CardActions >
-                       <Button className = {classes.cardButton} >Watch</Button>
-                       <Button className = {classes.cardButton}>Like</Button>
-                       <Button className = {classes.cardButton}>Rent</Button>
+                       <Button className = {classes.cardButton}>Watch</Button>
+                       <Button className = {classes.cardButton}>Share</Button>
+                       <Button className = {classes.cardButton}>Download</Button>
                    </CardActions>
                </Card>
                  );

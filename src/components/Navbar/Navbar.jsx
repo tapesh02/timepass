@@ -1,6 +1,7 @@
-import * as React from 'react';
+import React  from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import "./Navbar.css";
+import LogoComponent from "../Logo/LogoComponent.jsx"
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { IconButton} from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
@@ -10,51 +11,40 @@ import TextField from '@material-ui/core/TextField';
 
 
 
-const Navbar = () =>{
+
+
+const Navbar = ({handleChange, searchText}) =>{
 
     return (
         <>
         <div className="nav_main">
             <div className="logo_main">
-                <Link exact to='/home' className="logo" > Movie </Link>
+                <Link exact to='/home' className="logo" >  <LogoComponent/> </Link>
             </div>
             <div className="search_main">
             <TextField
-<<<<<<< HEAD
                 id="input-with-icon-textfield"
                 className= "searchTextStyle"
-                size= "Small"
+                size= "small"
                 placeholder="search"
+                variant="standard"
+                value = {searchText}
+                onChange = {handleChange}
                 InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
-                            <SearchIcon />
+                            <SearchIcon style={{color:'white'}} />
                             </InputAdornment>
                         ),
                         }}
-                        variant="standard"
-=======
-        id="input-with-icon-textfield"
-        className= "searchTextStyle"
-        size= "small"
-        placeholder="search"
-        InputProps={{
-                startAdornment: (
-                    <InputAdornment position="start">
-                    <SearchIcon style={{color:'white'}} />
-                    </InputAdornment>
-                ),
-                }}
-                variant="standard"
->>>>>>> 125471029d11f6b72b92ec086959ffabbf4f0589
-            />
+            />     
             </div>
             <div className="nav_menu">
             <NavLink exact activeClassName= "active_link"  to='/home' className="navitems"   > Home  </NavLink>
             <NavLink exact activeClassName= "active_link"  to='/about'className="navitems" > About </NavLink>
             <NavLink exact activeClassName= "active_link"  to = '/products' className="navitems" > Products </NavLink>
-            <IconButton className="account_icon">
-                <AccountCircleIcon fontSize="small"/>
+            <IconButton className="account_icon" >
+                <AccountCircleIcon fontSize="small" />
             </IconButton>
             
             </div>

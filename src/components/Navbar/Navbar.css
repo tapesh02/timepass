@@ -1,7 +1,7 @@
 .nav_main{
-    width:100%;
+    width:100vw;
     height:50px;
-    background-color: #444941;
+    background-color: #0e0d0d;
     border-radius: 0 0 7px 7px;
     display: flex;
 }
@@ -12,19 +12,12 @@
     flex-direction: row;
     float: left;  
     width: 25%;
+    align-content: center;
+    align-items: center;
+    justify-content: flex-start;
 }
-.logo{
-    color: #fff;
-    font-size: 16px;
-    font-weight: bold;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-.logo::after {
-    content: "Hunt";
-    color: orange;
-    font-weight: bold;
-    text-transform: capitalize;   
-}
+
+
 .search_main{
     display: flex;
     flex-direction: row-reverse;
