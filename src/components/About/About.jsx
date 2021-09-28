@@ -1,4 +1,4 @@
-import { Divider } from '@material-ui/core';
+import { Divider, IconButton } from '@material-ui/core';
 import React from 'react';
 import "./About.css"
 import AboutDetailsComponent from "./AboutDetailsComponent.jsx"
@@ -9,6 +9,11 @@ import nodejsLogo from "../../images/nodejsLogo.svg"
 import gitlogo from "../../images/gitlogo.svg"
 import themoviedbLogo from "../../images/themoviedbLogo.svg"
 import unsplashlogo from "../../images/unsplashlogo.svg"
+
+import FacebookIcon from '@material-ui/icons/Facebook';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import GitHubIcon from '@material-ui/icons/GitHub';
 
 
 
@@ -64,6 +69,20 @@ const About = () =>{
             <div className="about-main3">
             <div className="about-header">
                     <LogoComponent/>
+                    <div >
+                    <IconButton className="sociallogobtn">
+                        <FacebookIcon  style = {{color: '#e6fff6'}}/>
+                    </IconButton >
+                    <IconButton className="sociallogobtn">
+                        <TwitterIcon  style = {{color: '#e6fff6'}} />
+                    </IconButton>
+                    <IconButton className="sociallogobtn">
+                        <LinkedInIcon  style = {{color: '#e6fff6'}} />
+                    </IconButton>
+                    <IconButton className="sociallogobtn">
+                        <GitHubIcon  style = {{color: '#e6fff6'}}/>
+                    </IconButton>
+                    </div>
                 </div>
                 <div className="about-details">
                 <div className="email">
