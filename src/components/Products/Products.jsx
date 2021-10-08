@@ -1,6 +1,8 @@
 import React ,{useEffect, useState} from 'react';
-import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Typography, makeStyles } from '@material-ui/core';
+import {Grid, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Typography, makeStyles } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
+import Watchlist from '../Products/Watchlist.jsx';
+
 
 
 
@@ -12,17 +14,25 @@ const useStyles = makeStyles (theme => ({
            color: 'white'
         }
     },
-    main:{
-        display: 'grid',
-        width: '100%',
-        gridTemplateColumns: 'repeat(4, 2fr)',
-        alignItems: 'center',
-        justifyItems: 'center',
+
+    Main:{
+        width: "100vw",
+        height: "100vh",
+        justifyContent: "flex-start",
+        display: "flex",
+        flexWrap: "wrap",
+        alignItems: "flex-start", 
+        alignContent: "flex-start",
+        columnGap: "20px",
+        rowGap:"5px",
     },
     cardMain:{
-        maxWidth: '300px',
-        maxHeight: '320px',
+        width: 'min-content',
+        height: 'min-content',
         margin: '10px',
+        '&:hover':{
+            boxShadow: '5px 3px 5px white',
+         }
     },
 
     cardImage:{
@@ -220,6 +230,8 @@ const Produts = (props) =>{
             
      ]);
      
+     const [watchlist, setWatchlist] = useState ([]);
+
      const filterData = ((val) => {
 
          const keyword = props.searchText;
@@ -233,6 +245,7 @@ const Produts = (props) =>{
 
     
     
+
 //the below is an api which needs to be uncommented when final design is ready 
     useEffect (()=> {
         // const getMovieList  = async () => {
@@ -253,50 +266,61 @@ const Produts = (props) =>{
  }, [props.searchText]);
 
 
-
+ const handleWatchlist = (movieData) => {
+     const newWatchlist = [...watchlist , movieData]
+ }
 
     return (
         <> 
-            <div className={classes.main}> 
-            {movieData.filter(filterData).map((movie) =>{
-                 return(
-                    <Card className={classes.cardMain} key={movie.id}>
-                   <CardActionArea>
-                       <CardMedia className = {classes.cardImage}>
-                          <img style = {{width: '100%', height: '100%', objectFit: 'cover'}} 
-                               src ={`https://image.tmdb.org/t/p/original${movie.poster_path}`} 
-                               alt = "movie poster"/>
-                       </CardMedia>
-                       <CardContent className = {classes.cardContent}>
-                           <Typography>  {movie.original_title} </Typography>
-                           <Typography 
-                                      className = {classes.typography1} 
-                                      variant="body2" 
-                                      component = "p"
-                            > {movie.release_date} 
-                            </Typography>
-                           <Rating 
-                                className = {classes.typography2} 
-                                name = "ratings"
-                                value =  {movie.vote_average/2} 
-                                precision={0.5}
-                                readOnly                                
-                           />  
-                          
-                       </CardContent>
-                   </CardActionArea>
-                   <CardActions >
-                       <Button className = {classes.cardButton}>Watch</Button>
-                       <Button className = {classes.cardButton}>Share</Button>
-                       <Button className = {classes.cardButton}>Download</Button>
-                   </CardActions>
-               </Card>
-                 );
-                   
-            })}
-           
-            </div>
-             
+            <Grid
+            item
+            xs
+            container
+            direction="column"
+            alignItems="center"
+            justifyContent="center"
+            style={{ backgroundColor: "black", }}
+            >
+                <div  className ={classes.Main} > 
+                {movieData.filter(filterData).map((movie) =>{
+                    return(
+                        <Card className={classes.cardMain}  key={movie.id}>
+                    <CardActionArea>
+                        <CardMedia className = {classes.cardImage}>
+                            <img style = {{width: '100%', height: '100%', objectFit: 'cover'}} 
+                                src ={`https://image.tmdb.org/t/p/original${movie.poster_path}`} 
+                                alt = "movie poster"/>
+                        </CardMedia>
+                        <CardContent className = {classes.cardContent}>
+                            <Typography>  {movie.original_title} </Typography>
+                            <Typography 
+                                        className = {classes.typography1} 
+                                        variant="body2" 
+                                        component = "p"
+                                > {movie.release_date} 
+                                </Typography>
+                            <Rating 
+                                    className = {classes.typography2} 
+                                    name = "ratings"
+                                    value =  {movie.vote_average/2} 
+                                    precision={0.5}
+                                    readOnly                                
+                            />  
+                            
+                        </CardContent>
+                    </CardActionArea>
+                    <CardActions style = {{justifyContent: 'space-evenly'}} >
+                        <Button className = {classes.cardButton} size = "small">Watch</Button>
+                        <Button className = {classes.cardButton} size = "small" >Share</Button>
+                        <Button className = {classes.cardButton}size = "small" onClick = {handleWatchlist} ><Watchlist/></Button>
+                    </CardActions>
+                </Card>
+                    );
+                    
+                })}
+            
+                </div>
+            </Grid>
               
         </>
     )

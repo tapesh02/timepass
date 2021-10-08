@@ -1,4 +1,6 @@
 import React from 'react';
+import "./Home.css";
+
 
 const homeStyle = ({
 
@@ -55,7 +57,7 @@ const Home = () => {
             </div>
 
             <div style = {homeStyle.header}>
-                <h1 >Movie Masti Magic</h1>
+                <h1 className = "header">Movie Masti Magic</h1>
             </div>
             <div style = {homeStyle.sub_header}>
                 <p>There are dozens of genres you can pick from, including regular ones for romance, drama, documentary, kids, comedy, and horror films, as well as unique genres like Holiday Movies, Home & Garden, Preschool, and Sword & Sorcery.</p>

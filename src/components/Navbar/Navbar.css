@@ -1,9 +1,13 @@
+*{
+    text-decoration: none;
+}
+
 .nav_main{
     width:100vw;
     height:50px;
     background-color: #0e0d0d;
-    border-radius: 0 0 7px 7px;
     display: flex;
+    justify-content: space-between;
 }
 .logo_main{
     margin: 10px;
@@ -26,15 +30,14 @@
     padding: 5px;
     margin: 5px;
 }
-.searchTextStyle .MuiInputBase-input, .account_icon .MuiSvgIcon-root{
-    color: rgb(216, 216, 216) !important;
-}
+
+
 
 .nav_menu {
     display:flex;
     float: right;
     width: 20%; 
-    flex-direction: row;
+    justify-content: flex-end;
     align-items: center;
     margin-right: 10px;
     

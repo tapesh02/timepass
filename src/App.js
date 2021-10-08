@@ -7,6 +7,7 @@ import About from './components/About/About.jsx';
 import Signup from './components/Signup/Signup.jsx';
 import Signin from './components/Signin/Signin.jsx';
 import Products from './components/Products/Products.jsx';
+
 import Error from './components/Error/Error.jsx';
 
 
@@ -17,6 +18,7 @@ function App() {
   const handleChange = (event) =>{
     
     setSearchText(event.target.value);
+   
   }
  
 
@@ -28,6 +30,7 @@ function App() {
     <Route path="/home" component={Home}/>
     <Route path="/about" component={About}/>
     <Route path="/products" render= { (props) => <Products {...props} searchText={searchText} /> }/>
+
     <Route path="/signup" component={Signup}/>
     <Route path="/signin" component={Signin}/>
     <Route component={Error}/>

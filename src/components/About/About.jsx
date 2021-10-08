@@ -1,4 +1,4 @@
-import { Divider, IconButton } from '@material-ui/core';
+import { Divider, IconButton, Button, InputAdornment, TextField } from '@material-ui/core';
 import React from 'react';
 import "./About.css"
 import AboutDetailsComponent from "./AboutDetailsComponent.jsx"
@@ -14,6 +14,9 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
+import MessageIcon from '@material-ui/icons/Message';
+import EmailIcon from '@material-ui/icons/Email';
+
 
 
 
@@ -32,7 +35,10 @@ const About = () =>{
         <>
         <section>
             <div className = "main-header">
-                <img className = "header-img" src="https://images.pexels.com/photos/8263349/pexels-photo-8263349.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="headerImage" />
+                <div className = "header-img">
+                    <div className="bg-layer">
+                    </div> 
+                </div>
                 <h1>Welcome To MovieHunt</h1>
             </div>
             <div className="about-main">
@@ -84,13 +90,54 @@ const About = () =>{
                     </IconButton>
                     </div>
                 </div>
-                <div className="about-details">
-                <div className="email">
-                    <h4>Email</h4>
-                </div>
-                <div className="email-input">
-                    <h5>add contact form here</h5>
-                </div>
+                <div className="about-address-details">
+                    <div className="emailmain">
+                            <div className="email">
+                            <h4>Any Questions?</h4>
+                             </div>
+                            <div className="email-input">
+                                
+                                <TextField 
+                                        id = "subscribeEmail" 
+                                        label = "Enter email" 
+                                        variant = "outlined" 
+                                        size = "small"
+                                        margin = "dense"
+                                        InputProps ={{
+                                            startAdornment : <InputAdornment position = "start"> <EmailIcon/> </InputAdornment>
+                                        }}
+
+                                />
+                                <TextField 
+                                        id = "subscribeDescription" 
+                                        label = "Description" 
+                                        variant = "outlined" 
+                                        size = "small"
+                                        margin = "dense"
+                                        InputProps = {{
+                                            startAdornment : <InputAdornment position = "start"> <MessageIcon/> </InputAdornment>
+                                        }}
+                                />
+
+                                <Button style = {{color : "white", float: "right", outline : "1px white"}}>
+                                    Send
+                                </Button>
+                            </div>
+                    </div>
+                    <div className="addresdetails">
+                                <address>
+                                    <div className = "add-header"> 
+                                    <h4>Address</h4>
+                                    </div>
+                                     <div className = "add-details">   
+                                    <p>Apt - 202, Burnell Square  <br/>
+                                        Near Aldi Shopping Mall <br/>
+                                        Dublin 8, Dublin <br/>
+                                        Ireland - W154D11
+                                    </p>
+                                    </div>
+                                </address>
+                            </div>
                 </div>
             </div>
 
