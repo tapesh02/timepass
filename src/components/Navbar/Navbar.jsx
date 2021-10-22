@@ -1,25 +1,41 @@
 import React, {useState, useCallback}  from 'react';
-import { useHistory } from 'react-router';
+import {useHistory } from 'react-router';
 
 import {Link, NavLink} from 'react-router-dom';
 
 import "./Navbar.css";
 import LogoComponent from "../Logo/LogoComponent.jsx"
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import { Fade, IconButton, Menu, MenuItem} from '@material-ui/core';
+import { Fade, IconButton, Menu, MenuItem, makeStyles} from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
+;
 
 
-//import { withStyles} from '@material-ui/core/styles';
+//import { withStyles} from '@material-ui/core/styles'; 
 
 
+const useStyles = makeStyles (theme => ({
+    textbox:{
+        '& .MuiOutlinedInput-root': {
+            color: 'white',
+            border: '1px solid white',
+            zIndex: '1',
+            '&.Mui-focused fieldset': {
+                borderColor: 'transparent',
+              },
+        },
+    },
+
+}))
 
 
 
 
 const Navbar = ({handleChange, searchText}) =>{
+
+    const classes = useStyles();
 
  const [anchorEl, setAnchorEl] = useState (null);
  const open = Boolean(anchorEl);
@@ -32,6 +48,7 @@ const Navbar = ({handleChange, searchText}) =>{
      setAnchorEl(null);
  };
 
+ 
 const history = useHistory();
 const goToSignin = useCallback(
     () => {
@@ -39,26 +56,65 @@ const goToSignin = useCallback(
         setAnchorEl(null);
     },
     [history],
+);
+
+const watchhistory = useHistory();
+const goToWatchlist = useCallback(
+    () => {
+        watchhistory.push ('/watchlist') ;
+        setAnchorEl(null);
+    },
+    [watchhistory],
 )
+const productsHistory = useHistory();
+const goToProducts = useCallback(
+    () => {
+        productsHistory.push ('/products') ;
+        setAnchorEl(null);
+    },
+    [productsHistory],
+)
+
+const handleKeyPress = (event) => {
+    if(event.key === 'Enter' && searchText !== '')
+    {
+       history.push('/products')
+    }
+   if(searchText === '' && event.key === 'Enter'){
+       alert ("Please enter text to search")
+   }
+}
+const handleClick = (event) =>{
+    if (searchText === '')
+    {
+        alert("Please enter text to search")
+    }
+    if (searchText !== '')
+    {
+        goToProducts()
+    }
+}
+
     return (
         <>
         <div className="nav_main">
             <div className="logo_main">
-                <Link exact to='/home' className="logo" >  <LogoComponent/> </Link>
+                <Link to="/home" className="logo" >  <LogoComponent/> </Link>
             </div>
             <div className="search_main">
             <TextField
                 id="input-with-icon-textfield"
-                className= "searchTextStyle"
+                className = {classes.textbox}
                 size= "small"
                 placeholder="search"
                 variant="outlined"
                 value = {searchText}
                 onChange = {handleChange}
+                onKeyPress = {handleKeyPress}
                 InputProps={{
                         startAdornment: (
-                            <InputAdornment position="start">
-                            <SearchIcon style={{color:'white'}} />
+                            <InputAdornment position="start" onClick = {handleClick}>
+                            <SearchIcon style={{color:'white', cursor: "pointer"}} />
                             </InputAdornment>
                         ),
                         }}
@@ -80,7 +136,7 @@ const goToSignin = useCallback(
                 TransitionComponent = {Fade}
                 >
                     <MenuItem onClick = {goToSignin}> Profile</MenuItem>
-                    <MenuItem onClick = {closeMenu}> Watchlist</MenuItem>
+                    <MenuItem onClick = {goToWatchlist}> Watchlist</MenuItem>
                     <MenuItem onClick = {closeMenu}> Sign Out</MenuItem>
                 </Menu> 
             </div>

@@ -4,7 +4,7 @@ const Error = () => {
 
     return(
         <>
-        <h1>Page not found</h1>
+        <h1 style = {{color: 'red', fontSize : "3rem"}}>Page not found</h1>
         </>
     )
 

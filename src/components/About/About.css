@@ -181,7 +181,9 @@
     width: 20vw;
     margin-left: 10px;
 }
-
+.email{
+    margin-left: 15px;  
+}
 address{
  display: block;
  font-style: normal;

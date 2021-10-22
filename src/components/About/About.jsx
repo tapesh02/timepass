@@ -1,4 +1,4 @@
-import { Divider, IconButton, Button, InputAdornment, TextField } from '@material-ui/core';
+import { Divider, IconButton, Button, InputAdornment, TextField, makeStyles} from '@material-ui/core';
 import React from 'react';
 import "./About.css"
 import AboutDetailsComponent from "./AboutDetailsComponent.jsx"
@@ -9,6 +9,7 @@ import nodejsLogo from "../../images/nodejsLogo.svg"
 import gitlogo from "../../images/gitlogo.svg"
 import themoviedbLogo from "../../images/themoviedbLogo.svg"
 import unsplashlogo from "../../images/unsplashlogo.svg"
+import { white } from '@material-ui/core/colors';
 
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
@@ -18,7 +19,20 @@ import MessageIcon from '@material-ui/icons/Message';
 import EmailIcon from '@material-ui/icons/Email';
 
 
+const useStyles = makeStyles (theme => ({
+    textbox:{
+        '& .MuiOutlinedInput-root': {
+            color: 'white',
+            border: '1px solid white',
+            zIndex: '1',
+            margin: theme.spacing(2),
+            '&.Mui-focused fieldset': {
+                borderColor: 'transparent',
+              },
+        },
+    },
 
+}))
 
 const About = () =>{
 
@@ -31,6 +45,8 @@ const About = () =>{
             transform : 'translate(-50%, 0%)'
         }
     })
+  
+    const classes = useStyles();    
     return (
         <>
         <section>
@@ -93,27 +109,30 @@ const About = () =>{
                 <div className="about-address-details">
                     <div className="emailmain">
                             <div className="email">
-                            <h4>Any Questions?</h4>
+                            <h4 >Any Questions?</h4>
                              </div>
                             <div className="email-input">
-                                
+                        
                                 <TextField 
                                         id = "subscribeEmail" 
                                         label = "Enter email" 
                                         variant = "outlined" 
                                         size = "small"
                                         margin = "dense"
+                                        className = {classes.textbox}
                                         InputProps ={{
                                             startAdornment : <InputAdornment position = "start"> <EmailIcon/> </InputAdornment>
                                         }}
 
                                 />
+                                
                                 <TextField 
                                         id = "subscribeDescription" 
                                         label = "Description" 
                                         variant = "outlined" 
                                         size = "small"
                                         margin = "dense"
+                                        className = {classes.textbox}
                                         InputProps = {{
                                             startAdornment : <InputAdornment position = "start"> <MessageIcon/> </InputAdornment>
                                         }}
