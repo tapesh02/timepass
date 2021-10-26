@@ -2,26 +2,38 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core';
 
 
+
 const useStyles = makeStyles (theme => ({
 
-    h1style: {
-        fontSize: '2rem',
-        fontWeight : 'bold',
-        textTransform : 'capitalize',
-        textAlign: 'center',
-        color: 'red',
+    notfoundimg: {
+        width: '100%',
+        height: '100%',
+        backgroundImage: `url(${"https://images.unsplash.com/photo-1561722798-9a732d141027?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1974&q=80"})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
     },
-    
     mainBg: {
-        backgroundColor: 'white',
+        backgroundColor: 'transparent',
         width: '100vw',
         height: '91vh',
         alignItems: 'center',
         display: 'flex',
         justifyContent: 'center',
         justifyItems: 'center',
-    }
+        
+    },
+    h1style: {
+        fontSize: '2rem',
+        fontWeight : 'bold',
+        textTransform : 'capitalize',
+        textAlign: 'center',
+        color: 'black',
+
+    },
 })) ;
+
 const NotFound = (props) => {
 
     const classes = useStyles();
@@ -31,10 +43,11 @@ const NotFound = (props) => {
         
         <>
         <section>
-        <div className={classes.mainBg}>
-
-            <h1 className = {classes.h1style}> No result found for:  {props.notfound}</h1>
-        </div>
+            <div className={classes.notfoundimg}>
+                <div className={classes.mainBg}>
+                    <h1 className = {classes.h1style}> ɴᴏ ʀᴇꜱᴜʟᴛ ꜰᴏᴜɴᴅ ꜰᴏʀ {props.notfound}</h1>
+                </div>
+            </div>
         </section>
         </>
     ) 

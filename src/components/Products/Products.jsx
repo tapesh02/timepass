@@ -109,8 +109,8 @@ const Produts = (props) =>{
             const newWatchlist = [...watchlist , movieData];
             setWatchlist (newWatchlist);
         }
-        const noResultText = (props.searchText);
         
+        const noResultText = (props.searchText);
         return (
             <> 
             <Grid
