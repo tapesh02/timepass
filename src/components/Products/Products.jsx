@@ -438,7 +438,7 @@ const Produts = () =>{
     // useEffect (()=> {
         // const getMovieList  = async () => {
 
-        //     const url = 'http://api.themoviedb.org/3/search/movie?api_key=4a58ed5793dfdd5f2f1efc2069cdc112&query=Avengers';
+        //     const url = 'http://api.themoviedb.org/3/search/movie?api_key=YOUR_API_KEY&query=Avengers';
     
         //     const response = await fetch (url);
         //             try {
