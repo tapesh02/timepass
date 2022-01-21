@@ -9,7 +9,6 @@ import nodejsLogo from "../../images/nodejsLogo.svg"
 import gitlogo from "../../images/gitlogo.svg"
 import themoviedbLogo from "../../images/themoviedbLogo.svg"
 import unsplashlogo from "../../images/unsplashlogo.svg"
-import { white } from '@material-ui/core/colors';
 
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';

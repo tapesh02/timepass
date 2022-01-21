@@ -35,7 +35,7 @@ const useStyles = makeStyles (theme => ({
 
 const Navbar = ({handleChange, searchText}) =>{
 
-    const classes = useStyles();
+ const classes = useStyles();
 
  const [anchorEl, setAnchorEl] = useState (null);
  const open = Boolean(anchorEl);
@@ -66,21 +66,33 @@ const goToWatchlist = useCallback(
     },
     [watchhistory],
 )
-const productsHistory = useHistory();
-const goToProducts = useCallback(
+const moviesHistory = useHistory();
+const goToMovies = useCallback(
     () => {
-        productsHistory.push ('/products') ;
+        moviesHistory.push ('/Movies') ;
         setAnchorEl(null);
     },
-    [productsHistory],
+    [moviesHistory],
+)
+const tvshowsHistory = useHistory();
+const goTotvshows = useCallback(
+    () => {
+       tvshowsHistory.push ('/tvshows') ;
+        setAnchorEl(null);
+    },
+    [tvshowsHistory],
 )
 
 const handleKeyPress = (event) => {
-    if(event.key === 'Enter' && searchText !== '')
+    if( window.location.pathname === "/movies" && event.key === 'Enter' && searchText !== '')
     {
-       history.push('/products')
+       history.push('/movies')
     }
-   if(searchText === '' && event.key === 'Enter'){
+    else  if( window.location.pathname === "/tvshows" && event.key === 'Enter' && searchText !== '')
+    {
+       history.push('/tvshows')
+    }
+   else if(searchText === '' && event.key === 'Enter'){
        alert ("Please enter text to search")
    }
 }
@@ -89,9 +101,13 @@ const handleClick = (event) =>{
     {
         alert("Please enter text to search")
     }
-    if (searchText !== '')
+    else if (window.location.pathname === "/movies"  && searchText !== '')
     {
-        goToProducts()
+        goToMovies()
+    }
+    else if (window.location.pathname === "/tvshows" && searchText !== '')
+    {
+        goTotvshows()
     }
 }
 
@@ -122,8 +138,9 @@ const handleClick = (event) =>{
             </div>
             <div className="nav_menu">
             <NavLink exact activeClassName= "active_link"  to='/home' className="navitems"   > Home  </NavLink>
+            <NavLink exact activeClassName= "active_link"  to = '/movies' className="navitems" > Movies </NavLink>
+            <NavLink exact activeClassName= "active_link"  to = '/tvshows' className="navitems" > TV Seasons </NavLink>
             <NavLink exact activeClassName= "active_link"  to='/about'className="navitems" > About </NavLink>
-            <NavLink exact activeClassName= "active_link"  to = '/products' className="navitems" > Products </NavLink>
             <IconButton className="account_icon" onClick = {openMenu} >
                 <AccountCircleIcon fontSize="small" color = "primary" /> 
             </IconButton>

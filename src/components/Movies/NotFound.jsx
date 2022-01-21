@@ -12,7 +12,6 @@ const useStyles = makeStyles (theme => ({
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
     },
     mainBg: {
         backgroundColor: 'transparent',
@@ -45,7 +44,7 @@ const NotFound = (props) => {
         <section>
             <div className={classes.notfoundimg}>
                 <div className={classes.mainBg}>
-                    <h1 className = {classes.h1style}> ɴᴏ ʀᴇꜱᴜʟᴛ ꜰᴏᴜɴᴅ ꜰᴏʀ {props.notfound}</h1>
+                    <h1 className = {classes.h1style}> Oppps.. ! No results found for {props.notfound}</h1>
                 </div>
             </div>
         </section>

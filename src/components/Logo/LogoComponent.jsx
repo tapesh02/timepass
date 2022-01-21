@@ -18,14 +18,14 @@ const LogoComponent = () => (
     </defs>
     <text className="logo1" transform="translate(0 43)">
       <tspan x={0} y={0}>
-        {"M"}
+        {"T"}
       </tspan>
       <tspan className="logo2" y={0}>
-        {"ovie"}
+        {"ime"}
       </tspan>
-      <tspan y={0}>{"H"}</tspan>
+      <tspan y={0}>{"P"}</tspan>
       <tspan className="logo2" y={0}>
-        {"unt"}
+        {"ass"}
       </tspan>
     </text>
   </svg>

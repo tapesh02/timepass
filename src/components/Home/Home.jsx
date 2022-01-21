@@ -7,7 +7,7 @@ const homeStyle = ({
 
     header: {
         color: 'white',
-        fontSize: '2em',
+        fontSize: '2rem',
         zIndex:'2',
         position: 'relative',
         textAlign: 'center',

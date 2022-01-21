@@ -6,9 +6,10 @@ import Home from './components/Home/Home.jsx';
 import About from './components/About/About.jsx';
 import Signup from './components/Signup/Signup.jsx';
 import Signin from './components/Signin/Signin.jsx';
-import Products from './components/Products/Products.jsx';
-import Watchlist from './components/Products/Watchlist.jsx';
+import Movies from './components/Movies/Movies.jsx';
+import Watchlist from './components/Movies/Watchlist.jsx';
 import Error from './components/Error/Error.jsx';
+import TvShows from './components/Movies/TvShows';
 
 
 function App() {
@@ -30,7 +31,8 @@ function App() {
     <Switch>
     <Route exact path="/home" component={Home}/>
     <Route exact path="/about" component={About}/>
-    <Route exact path="/products" render= { (props) => <Products {...props} searchText={searchText} /> }/>
+    <Route exact path="/movies" render= { (props) => <Movies {...props} searchText={searchText} /> }/>
+    <Route exact path="/tvshows" render= { (props) => <TvShows {...props} searchText={searchText} /> }/>
     <Route exact path="/watchlist" component={Watchlist}/>
     <Route exact path="/signup" component={Signup}/>
     <Route exact path="/signin" component={Signin}/>
