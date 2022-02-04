@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core';
 
 const useStyle = makeStyles (theme => ({
       stylepages:{
-            width: "100%",
+            width: "100% !important",
             alignContent: "center",
             justifyContent: "center", 
             display: "flex",
@@ -15,7 +15,7 @@ const useStyle = makeStyles (theme => ({
 
 
 
-const PageNav = ({setPage, numberOfPages = 10}) => {
+const PageNav = ({setPage, page, numberOfPages = 10}) => {
 
       const classes = useStyle();
       const handlePageChange = (page) => {
@@ -30,7 +30,8 @@ const PageNav = ({setPage, numberOfPages = 10}) => {
       return (
             <div>
              <Pagination  
-             count = {numberOfPages}  
+             count = {numberOfPages} 
+             page={parseInt(page, 10)}
              onClick = {(event) =>handlePageChange(event.target.textContent) }
              color = "primary"
              className = {classes.stylepages}
