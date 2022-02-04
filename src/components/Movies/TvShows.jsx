@@ -4,6 +4,9 @@ import Rating from '@material-ui/lab/Rating';
 import NotFound from './NotFound';
 import { wList } from '../../Context.js';
 import PageNav from './PageNav';
+import FilterNav from './FilterNav';
+import useGenres from '../../hooks/useGenres';
+import Trending from './Trending';
 
 
 
@@ -83,6 +86,11 @@ const TvShows = (props) => {
   const classes = useStyles();
   const {watchlist, setWatchlist, page, setPage, numberOfPages , setNumberOfPages} = useContext(wList);
   const [tvData, setTvData] = useState([])
+  const [genres, setGenres] = useState([])
+  const [selectedGenres, setSelectedGenres] = useState([])
+  const [showTrending, setShowTrending] = useState(false)
+  const gUrl  = useGenres(selectedGenres)
+
   
   const tfilterData = ((val) => {
     if (props.searchText === "" ) {
@@ -101,10 +109,13 @@ const TvShows = (props) => {
   
   useEffect(() => {
     const getTvshowList = async () => {
+         // eslint-disable-next-line
      const tvshowTrendingAPI =  `https://api.themoviedb.org/3/trending/tv/week?api_key=${process.env.REACT_APP_API_KEY}&page=${page}`
      const searchtvUrl = `https://api.themoviedb.org/3/search/tv?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&query=${props.searchText}&page=${page}`
+     const discoverTvUrl = `https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${gUrl}`
+     //const tresponse = await fetch (props.searchText ===""? tvshowTrendingAPI : searchtvUrl);
 
-     const tresponse = await fetch (props.searchText ===""? tvshowTrendingAPI : searchtvUrl);
+     const tresponse = await fetch (props.searchText ===""&& selectedGenres? discoverTvUrl : searchtvUrl);
     try{
 
       const tresponseJson = await tresponse.json();
@@ -119,8 +130,11 @@ const TvShows = (props) => {
   }
   getTvshowList();
   // eslint-disable-next-line
-}, [props.searchText, page]);
+}, [props.searchText, gUrl, page]);
 
+useEffect(() => {
+    setPage(1);
+}, [showTrending, setPage]);
 
 return (
   <> 
@@ -133,20 +147,18 @@ return (
       alignItems="flex-start"
       style={{ backgroundColor: "black", width: "100%", height: "100%"}}
   >
-      <div className={classes.filtermain}>
-          <div className={classes.filterinner1}>
-              <Button className={classes.frecentlyadded}>Recently Added </Button>
-              <Button className={classes.fmostpopular}>Most Popular</Button>
-          </div>
-          <div className={classes.filterinner2}>
-              <Button className={classes.fyear}>Year</Button>
-              <Button className={classes.fgenre}>Genre</Button>
-              <Button className={classes.flanguage}>Language</Button>
-              <Button className={classes.fsortby}>Sort by</Button>
-          </div>
-      </div>
-     
-      <div  className ={classes.Main} > 
+      <FilterNav
+      genres = {genres}
+      setGenres = {setGenres}
+      selectedGenres = {selectedGenres}
+      setSelectedGenres = {setSelectedGenres}
+      setPage = {setPage}
+      setShowTrending = {setShowTrending}
+      showTrending = {showTrending}
+      />
+      {
+        showTrending? <Trending searchText = {props.searchText} />: 
+           <div  className ={classes.Main} > 
       { tvData.length === 0 ? <NotFound notfound = {props.searchText}/> : tvData.filter(tfilterData).map((tvshows) =>{
           return(
               <Card className={classes.cardMain}  key={tvshows.id}>
@@ -154,6 +166,7 @@ return (
               <CardMedia 
                 height="150px"
                 component="img"
+                style  = {{objectFit: "cover" }}
                 image ={`https://image.tmdb.org/t/p/original/${tvshows.poster_path}`} 
                 alt = "tv poster"
                 title = {tvshows.name}
@@ -184,8 +197,9 @@ return (
           );                    
       })}            
       </div>
+}
   </Grid> 
-  <PageNav  setPage = {setPage}  numberOfPages = {numberOfPages}/>
+  <PageNav  setPage = {setPage}  page = {page} numberOfPages = {numberOfPages}/>
 </>    )
 };
 
