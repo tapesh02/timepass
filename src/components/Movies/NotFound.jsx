@@ -1,5 +1,6 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core';
+import { CircularProgress, makeStyles } from '@material-ui/core';
+
 
 
 
@@ -8,7 +9,9 @@ const useStyles = makeStyles (theme => ({
     notfoundimg: {
         width: '100%',
         height: '100%',
-        backgroundImage: `url(${"https://images.unsplash.com/photo-1561722798-9a732d141027?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1974&q=80"})`,
+       // backgroundImage:`url(${loading})`,  use this if you are importing it form your intenal storage
+    //    background: `url(${"https://images.pexels.com/photos/325185/pexels-photo-325185.jpeg?auto=compress&cs=tinysrgb&dpr=2"}) ` , 
+        backgroundImage: `linear-gradient( to bottom, #0f0f0f, #434343, #7c7c7c, #bcbcbc, #ffffff)`, 
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
@@ -31,6 +34,15 @@ const useStyles = makeStyles (theme => ({
         color: 'black',
 
     },
+    progress: {
+        position: 'absolute',
+        textJustify: 'center',
+        margin: '0',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        color: '#356E44',
+      },
 })) ;
 
 const NotFound = (props) => {
@@ -44,7 +56,8 @@ const NotFound = (props) => {
         <section>
             <div className={classes.notfoundimg}>
                 <div className={classes.mainBg}>
-                    <h1 className = {classes.h1style}> Oppps.. ! No results found for {props.notfound}</h1>
+                    <h1 className = {classes.h1style}> Loading ..  {props.notfound}</h1>
+                    <CircularProgress className = {classes.progress} />
                 </div>
             </div>
         </section>
