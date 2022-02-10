@@ -71,11 +71,22 @@ const FilterNav = ({
        <div className={styles.filtermain}>
                     <div >
                         <Button >Recently Added </Button>
-                        <Button  onClick = { handleTrending } >Most Popular</Button>
+                        <Button 
+                           color = {showTrending === true ? "secondary" : "default"}  
+                           onClick = { handleTrending } >
+                                 Most Popular
+                        </Button>
                     </div>
                     <div >
-                        <Button>Year</Button>
-                        <Button aria-controls="genresId" aria-haspopup="true" onClick={ () =>  setShowGenresFilter(!showGenresFilter) }>Genre</Button> 
+                        <Button  >Year</Button>
+                        <Button 
+                         color = {showGenresFilter ? "secondary" : "default"}  
+                         aria-controls="genresId" 
+                         aria-haspopup="true" 
+                         onClick={ () =>  setShowGenresFilter(!showGenresFilter) }
+                        >
+                                    Genre
+                        </Button> 
                         <Button >Language</Button>
                         <Button>Sort by</Button>
                     </div>
