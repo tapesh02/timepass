@@ -1,5 +1,5 @@
 import React, {useState, useCallback}  from 'react';
-import { Divider, FormControl, OutlinedInput, InputLabel, InputAdornment, Button, IconButton } from '@material-ui/core';
+import { Divider, FormControl, OutlinedInput, InputLabel, InputAdornment, Button, IconButton, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 //import reactRouterDom from 'react-router-dom';
 //import {Link} from 'react-router-dom';
@@ -137,9 +137,9 @@ const Signin = () => {
                             <img src={youtube} alt="Signinimage" className={classes.Signinimage}/> 
                     </div>
                         <div className = {classes.imageIcons}>
-                        <IconButton> <YouTubeIcon style = {{color:'orange'}}/> <p style = {{fontSize: '16px', marginLeft: '5px'}}>Watch</p></IconButton>
-                        <IconButton> <YouTubeIcon style = {{color:'orange'}}/> <p style = {{fontSize: '16px',marginLeft: '5px'}}>Share</p> </IconButton> 
-                        <IconButton> <YouTubeIcon style = {{color:'orange'}}/> <p style = {{fontSize: '16px', marginLeft: '5px'}}>Like</p></IconButton> 
+                        <IconButton disabled = "false"> <YouTubeIcon style = {{color:'orange'}}/> <p style = {{fontSize: '16px', marginLeft: '5px'}}>Watch</p></IconButton>
+                        <IconButton disabled = "false"> <YouTubeIcon style = {{color:'orange'}}/> <p style = {{fontSize: '16px',marginLeft: '5px'}}>Share</p> </IconButton> 
+                        <IconButton disabled = "false"> <YouTubeIcon style = {{color:'orange'}}/> <p style = {{fontSize: '16px', marginLeft: '5px'}}>Like</p></IconButton> 
                         </div>                   
                 </div>
                 
@@ -147,8 +147,7 @@ const Signin = () => {
                 
                     <div className={classes.Signin_form}>
                         <form onSubmit = {OnSubmitLoginForm} style = {{display: 'flex', flexDirection: 'column'}}>
-
-                                        <h5>Welcome back .. !</h5>
+                        <Typography varient = "h5" style={{ margin: "5px" , padding: "10px" }}>Welcome back.. </Typography>
 
                                         <FormControl variant = "outlined" size='small' style={{marginTop:'5px', marginBottom: '5px'}} >
                                             <InputLabel htmlFor="outlined-userEmail-input">Enter Email</InputLabel>
