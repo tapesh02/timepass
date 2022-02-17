@@ -85,7 +85,9 @@ const Movies = (props) =>{
     const [movieData, setMovieData] = useState([]);
     const [genres, setGenres] = useState([])
     const [selectedGenres, setSelectedGenres] = useState([])
-    const [watchVideo, setWatchVideo] = useState(false)
+    
+    const [watchMovieVideo, setWatchMovieVideo] = useState(false)
+    const [watchTrendingVideo, setWatchTrendingVideo] = useState()
     const [movieVideoId, setMovieVideoId ] = useState([])
     const [showTrending, setShowTrending] = useState(false)
     
@@ -110,22 +112,19 @@ const Movies = (props) =>{
         }
         const handleWatchOpen = (movied) => {
             setMovieVideoId(movied)
-            console.log("handleWatchOpen clicked");
+            console.log("handleWatchOpen clicked on movies");
         }
         const handleWatchClose =() => {
-            setWatchVideo(false)
-            console.log("handleWatchClose clicked");
+            setWatchMovieVideo(false)
+            setWatchTrendingVideo(false)
+            console.log("handleWatchClose clicked on movies");
             setMovieVideoId("")
         }
-    
     useEffect (()=> {
         const getMovieList  = async () => {
-
-         // eslint-disable-next-line
-            const movieTrendingUrl = `https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.REACT_APP_API_KEY}&page=${page}`
+            
             const movieSearchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&query=${props.searchText}&page=${page}`
             const discoverMovieUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${gUrl}`
-               //const tresponse = await fetch (props.searchText ===""? movieTrendingUrl : searchtvUrl);
             
             const response = await fetch ( (props.searchText ==="" && selectedGenres? discoverMovieUrl : movieSearchUrl)  );
             try {
@@ -168,13 +167,12 @@ const Movies = (props) =>{
                 setShowTrending = {setShowTrending}
                 showTrending = {showTrending}
                 /> 
-
+                
+               
                 {
-                    showTrending? <Trending searchText = {props.searchText}  />: null
-                  
-                }
-
-                 {  watchVideo === true ? <VideoModal watchVideo = {watchVideo} handleWatchClose ={handleWatchClose}  movieVideoId = {movieVideoId}  />  :  
+                    showTrending === true? <Trending searchText = {props.searchText}  watchMovieVideo = {watchMovieVideo} watchTrendingVideo = {watchTrendingVideo} setWatchTrendingVideo = {setWatchTrendingVideo} handleWatchOpen = {handleWatchOpen} handleWatchClose = {handleWatchClose}  movieVideoId = {movieVideoId} />: 
+                    <>
+                         {  watchMovieVideo === true? <VideoModal handleWatchClose ={handleWatchClose}  movieVideoId = {movieVideoId}  />  :  
                         <div  className ={classes.Main} > 
                             { 
                                     movieData.length  === 0 ?  <NotFound  /> : movieData.filter(filterData).map((movie) =>{
@@ -207,7 +205,7 @@ const Movies = (props) =>{
                                             </CardContent>
                                             </CardActionArea>
                                             <CardActions style = {{justifyContent: 'space-evenly'}} >
-                                                <Button className = {classes.cardButton} size = "small" onClick = {  () => {handleWatchOpen(movie) ;   setWatchVideo(true)} }>Watch</Button>
+                                                <Button className = {classes.cardButton} size = "small" onClick = {  () => {handleWatchOpen(movie) ;   setWatchMovieVideo(true)} }>Watch</Button>
                                                 <Button className = {classes.cardButton} size = "small" >Share</Button>
                                                 <Button className = {classes.cardButton}size = "small" onClick = {   ()=> addToWatchlist(movie) }> Add </Button> 
                                             </CardActions>                   
@@ -216,11 +214,17 @@ const Movies = (props) =>{
                                 })
                             }  
                         </div>
-                 }
+                         }
+                    </>
+                  
+                }
+
+            
                    
                 </Grid> 
-                 {  watchVideo === false   ? <PageNav  setPage = {setPage}  page={page} numberOfPages = {numberOfPages}/> : null} 
+                 {  watchMovieVideo === false   ? <PageNav  setPage = {setPage}  page={page} numberOfPages = {numberOfPages}/> : null} 
               
-        </>    )
+            </>    
+        )
 };
 export default Movies;
