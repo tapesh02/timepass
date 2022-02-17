@@ -26,29 +26,29 @@ const useStyles = makeStyles (theme => ({
 const VideoModal = ({
   handleWatchClose, 
    //code even simpler by destructuring the object or props
-  movieVideoId : {
-    id ,
-    title,
-    backdrop_path,
-    overview,
-    poster_path,
-    release_date,
-  }
+  movieVideoId,
+  handleWatchCloseTv, 
+  tvId,
 }) => {
   const classes = useStyles()
-  console.log(id);
+
   const [openPlayer, setOpenPlayer] = useState(false)
   const [videos, setVideos] = useState()
   const [castData, setCastData] = useState()
 
+  const ID = `${window.location.pathname === "/movies" ? movieVideoId.id : tvId.id}`
+  const _poster_path = `${window.location.pathname === "/movies"? movieVideoId.poster_path : tvId.poster_path}`
+  const  _title = `${window.location.pathname === "/movies"? movieVideoId.title : tvId.name}`
+  const _date = `${window.location.pathname === "/movies"? movieVideoId.release_date : tvId.first_air_date}`
+  const _overview = `${window.location.pathname === "/movies"? movieVideoId.overview : tvId.overview}`
+  const _backdrop_path = `${window.location.pathname === "/movies"? movieVideoId.backdrop_path : tvId.backdrop_path}`
 
 
- 
 
   useEffect (() => {
     const getVideoData =  async ( ) => {
-      const videoAPI = `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
-      const response = await fetch (  id !== undefined ? videoAPI : null )
+      const videoAPI = `https://api.themoviedb.org/3/${window.location.pathname === "/movies"? "movie": "tv"}/${ID}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+      const response = await fetch ( ID !== undefined ? videoAPI : null )
          try{
            const responseJson = await response.json()
            const data = (responseJson.results)
@@ -59,11 +59,12 @@ const VideoModal = ({
          }
    }
            getVideoData() ;
-    }, [id])
+    }, [ID])
+
     useEffect (() => {
       const getCastData =  async ( ) => {
-        const castAPI = `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
-        const response = await fetch (    id !== undefined ? castAPI : null    )
+        const castAPI = `https://api.themoviedb.org/3/${window.location.pathname === "/movies"? "movie": "tv"}/${ID}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+        const response = await fetch (   ID!== undefined ? castAPI : null    )
           try{
             const responseJson = await response.json()
             const cdata = (responseJson.cast)
@@ -74,7 +75,7 @@ const VideoModal = ({
           }
      }
       getCastData();
-}, [id, setCastData])
+}, [ID, setCastData])
 
 
   return (  
@@ -82,7 +83,7 @@ const VideoModal = ({
 
 
               <div style = {{width : "93%", marginTop: "2px"}}>
-              <Badge  className = {classes.cardButton} size = "small" onClick = { () => {handleWatchClose() ; setOpenPlayer(false) }} color="secondary">
+              <Badge  className = {classes.cardButton} size = "small" onClick = { () => { {window.location.pathname === "/movies" ?  handleWatchClose() : handleWatchCloseTv()} ; setOpenPlayer(false)  }} color="secondary">
                   <CancelIcon />
             </Badge>
               </div>
@@ -100,12 +101,12 @@ const VideoModal = ({
                                 <div className='modal'>
                                   <div className='modal_content'>
                                 
-                                        <div  className='modal_img'><img src =  {`https://image.tmdb.org/t/p/original/${poster_path}`} alt = "img"/>
+                                        <div  className='modal_img'><img src =  {`https://image.tmdb.org/t/p/original/${_poster_path}`} alt = "img"/>
                                         <div  className='modal_header'>
-                                        <h4> {title}</h4>
+                                        <h4> {_title}</h4>
                                           <h5> 
                                           {
-                                                release_date ? release_date.substring(0,4) : "..." 
+                                                _date ? _date.substring(0,4): "..." 
                                           }
                                             </h5>
                                         <h6> <span>117</span> Action, Drama, Crime</h6>
@@ -113,7 +114,7 @@ const VideoModal = ({
                                         
                                         </div>
                                           <div className='inner_modal'>
-                                                <p>{overview}</p>
+                                                <p>{_overview}</p>
                                                 <IconButton >
                                                   <YouTubeIcon  onClick ={() => setOpenPlayer(!openPlayer)}/>
                                                 </IconButton>
@@ -124,13 +125,13 @@ const VideoModal = ({
                                                     <FavoriteIcon />
                                                   </IconButton>
                                           </div>
-                                      <div className='poster_bg' style={{background: `linear-gradient(to right, #ffffff, #e4e5e6, #cacccd, #afb3b4, #969b9b), url(${`https://image.tmdb.org/t/p/original/${backdrop_path}`})  no-repeat  center center` , backgroundSize: 'cover' }}  >
+                                      <div className='poster_bg' style={{background: `linear-gradient(to right, #ffffff, #e4e5e6, #cacccd, #afb3b4, #969b9b), url(${`https://image.tmdb.org/t/p/original/${_backdrop_path} `})  no-repeat  center center` , backgroundSize: 'cover' }}  >
                                       <div className="outer_modal">
                                                   <div class="slider">
                                                      <div class="slide-track">
                                                        {
                                                          castData?.map((c) => (
-                                                            <div class="slide">
+                                                            <div class="slide" key = {c.id}>
                                                               {
                                                                 c.profile_path? <img  className="carouselImg" alt= {c.name} src={`https://image.tmdb.org/t/p/original${c.profile_path}`}  height="100" width="100"  /> : <img  className="carouselImg" alt= {c.name} src={`https://st.depositphotos.com/2101611/4338/v/600/depositphotos_43381243-stock-illustration-male-avatar-profile-picture.jpg`}  height="100" width="100"  />
                                                               }
