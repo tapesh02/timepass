@@ -7,6 +7,7 @@ import PageNav from './PageNav';
 import FilterNav from './FilterNav';
 import useGenres from '../../hooks/useGenres';
 import Trending from './Trending';
+import VideoModal from './VideoModal';
 
 
 
@@ -89,6 +90,10 @@ const TvShows = (props) => {
   const [genres, setGenres] = useState([])
   const [selectedGenres, setSelectedGenres] = useState([])
   const [showTrending, setShowTrending] = useState(false)
+
+  const [watchTrendingVideo, setWatchTrendingVideo] = useState()
+  const [watchTvVideo, setWatchTvVideo] = useState(false)
+  const [tvId, setTvId] = useState(false)
   const gUrl  = useGenres(selectedGenres)
 
   
@@ -99,7 +104,6 @@ const TvShows = (props) => {
     else if (val.name?.toLowerCase().includes(props.searchText?.toLowerCase())) {
         return val
     } 
-    
 } );
 
   const addToWatchlist = (tvData) => {
@@ -107,6 +111,19 @@ const TvShows = (props) => {
     setWatchlist(addItem);   
 }
   
+  const handleWatchOpenTv =(tvshowId) =>{
+    setTvId(tvshowId)
+    console.log("clicked open on TV shows");
+  }
+
+  const handleWatchCloseTv = () =>{
+      setWatchTvVideo(false)
+      setWatchTrendingVideo(false)
+      setTvId("")
+    console.log("clicked close on TV show");
+
+  }
+
   useEffect(() => {
     const getTvshowList = async () => {
          // eslint-disable-next-line
@@ -156,48 +173,53 @@ return (
       setShowTrending = {setShowTrending}
       showTrending = {showTrending}
       />
-      {
-        showTrending? <Trending searchText = {props.searchText} />: 
-           <div  className ={classes.Main} > 
-      { tvData.length === 0 ? <NotFound notfound = {props.searchText}/> : tvData.filter(tfilterData).map((tvshows) =>{
-          return(
-              <Card className={classes.cardMain}  key={tvshows.id}>
-          <CardActionArea>
-              <CardMedia 
-                height="150px"
-                component="img"
-                style  = {{objectFit: "cover" }}
-                image ={`https://image.tmdb.org/t/p/original/${tvshows.poster_path}`} 
-                alt = "tv poster"
-                title = {tvshows.name}
-                />
-              <CardContent className = {classes.cardContent}>
-                  <Typography className = {classes.movieTitle}>  {tvshows.name} </Typography>
-                  <Typography 
-                              className = {classes.typography1} 
-                              variant="body2" 
-                              component = "p"
-                      > {tvshows.first_air_date} 
-                      </Typography>
-                  <Rating 
-                          className = {classes.typography2} 
-                          name = "ratings"
-                          value =  {tvshows.vote_average/2} 
-                          precision={0.5}
-                          readOnly                                
-                  />                             
-              </CardContent>
-          </CardActionArea>
-          <CardActions style = {{justifyContent: 'space-evenly'}} >
-              <Button className = {classes.cardButton} size = "small">Watch</Button>
-              <Button className = {classes.cardButton} size = "small" >Share</Button>
-              <Button className = {classes.cardButton}size = "small" onClick = {   ()=> addToWatchlist(tvshows) }> Add </Button> 
-          </CardActions>                   
-      </Card>
-          );                    
-      })}            
-      </div>
-}
+            {
+                showTrending? <Trending searchText = {props.searchText}  handleWatchCloseTv = {handleWatchCloseTv}   handleWatchOpenTv = {handleWatchOpenTv}   watchTvVideo ={watchTvVideo}   watchTrendingVideo = {watchTrendingVideo} setWatchTrendingVideo = {setWatchTrendingVideo} tvId ={tvId}   />: 
+                <>
+                    { watchTvVideo === true? <VideoModal  handleWatchCloseTv = {handleWatchCloseTv}  tvId ={tvId}  />  :                 
+                        <div  className ={classes.Main} > 
+                            { tvData.length === 0 ? <NotFound notfound = {props.searchText}/> : tvData.filter(tfilterData).map((tvshows) =>{
+                                return(
+                                    <Card className={classes.cardMain}  key={tvshows.id}>
+                                <CardActionArea>
+                                    <CardMedia 
+                                        height="150px"
+                                        component="img"
+                                        style  = {{objectFit: "cover" }}
+                                        image ={`https://image.tmdb.org/t/p/original/${tvshows.poster_path}`} 
+                                        alt = "tv poster"
+                                        title = {tvshows.name}
+                                        />
+                                    <CardContent className = {classes.cardContent}>
+                                        <Typography className = {classes.movieTitle}>  {tvshows.name} </Typography>
+                                        <Typography 
+                                                    className = {classes.typography1} 
+                                                    variant="body2" 
+                                                    component = "p"
+                                            > {tvshows.first_air_date} 
+                                            </Typography>
+                                        <Rating 
+                                                className = {classes.typography2} 
+                                                name = "ratings"
+                                                value =  {tvshows.vote_average/2} 
+                                                precision={0.5}
+                                                readOnly                                
+                                        />                             
+                                    </CardContent>
+                                </CardActionArea>
+                                <CardActions style = {{justifyContent: 'space-evenly'}} >
+                                    <Button className = {classes.cardButton} size = "small" onClick= { () => {handleWatchOpenTv(tvshows) ; setWatchTvVideo(true)} }>Watch</Button>
+                                    <Button className = {classes.cardButton} size = "small" >Share</Button>
+                                    <Button className = {classes.cardButton}size = "small" onClick = {   ()=> addToWatchlist(tvshows) }> Add </Button> 
+                                </CardActions>                   
+                            </Card>
+                                );                    
+                            })}            
+                        </div>
+                    }
+                </>
+
+            }
   </Grid> 
   <PageNav  setPage = {setPage}  page = {page} numberOfPages = {numberOfPages}/>
 </>    )
