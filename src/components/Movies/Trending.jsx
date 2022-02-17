@@ -4,6 +4,7 @@ import Rating from '@material-ui/lab/Rating';
 import "./Movies.css"
 import NotFound from './NotFound';
 import { wList } from '../../Context.js';
+import VideoModal from './VideoModal';
 
 
 
@@ -69,26 +70,40 @@ const useStyles = makeStyles (theme => ({
 
 const Trending = ({
   searchText, 
-}) => {
+  watchMovieVideo,
+  watchTrendingVideo,
+  setWatchTrendingVideo,
+  handleWatchOpen, 
+  handleWatchClose,
+  movieVideoId ,
 
+  handleWatchOpenTv,
+  handleWatchCloseTv,
+  watchTvVideo,
+//   watchTrendingVideo,
+//   setWatchTrendingVideo, 
+  tvId, 
+}) => {
   const classes = useStyles();
 
     
     const [movieData, setMovieData] = useState([]);
+    // const [watchTrendingVideo, setwatchTrendingVideo] = useState(false)
     const {watchlist, setWatchlist, page , setNumberOfPages} = useContext(wList);
+
+    const _category = `${window.location.pathname === "/movies" ? "movies" : "tv" }`
+    // const _id = `${window.location.pathname === "/movies" ? movieVideoId.id : tvId.id}`
+    // const _watchVideo = `${window.location.pathname === "/movies" ? watchMovieVideo : watchTvVideo}`
     
     const addToWatchlist = (movieData) => {
             const addItem = [...watchlist, movieData]
             setWatchlist(addItem);   
         }
 
-      
-
-
         useEffect (()=> {
           const getMovieList  = async () => {
 
-              const TrendingUrl = `https://api.themoviedb.org/3/trending/${window.location.pathname === "/movies" ? "movie" : "tv"}/day?api_key=${process.env.REACT_APP_API_KEY}&page=${page}`
+              const TrendingUrl = `https://api.themoviedb.org/3/trending/${_category}/week?api_key=${process.env.REACT_APP_API_KEY}&page=${page}`
             //  const movieSearchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&query=${searchText}&page=${page}`
               // const discoverMovieUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${gUrl}`
                  //const tresponse = await fetch (searchText ===""? movieTrendingUrl : searchtvUrl);
@@ -120,7 +135,9 @@ const Trending = ({
                 alignItems="flex-start"
                 style={{ backgroundColor: "black", width: "100%", height: "100%"}}
             >
-                    <div  className ={classes.Main} > 
+
+                {  watchTrendingVideo === true? <VideoModal handleWatchClose ={handleWatchClose}  movieVideoId = {movieVideoId}   handleWatchCloseTv ={handleWatchCloseTv} tvId ={tvId} />  :                      
+                <div  className ={classes.Main} > 
                     { movieData.length === 0 ? <NotFound notfound = {searchText} /> : movieData.map((movie) =>{
                         return(
                             <Card className={classes.cardMain}  key={movie.id}>
@@ -152,14 +169,15 @@ const Trending = ({
                             </CardContent>
                         </CardActionArea>
                         <CardActions style = {{justifyContent: 'space-evenly'}} >
-                            <Button className = {classes.cardButton} size = "small">Watch</Button>
+                            <Button className = {classes.cardButton} size = "small" onClick = {  () => {{window.location.pathname === "/movies" ?  handleWatchOpen(movie) : handleWatchOpenTv(movie)}   ;   setWatchTrendingVideo(true) } } >Watch</Button>
                             <Button className = {classes.cardButton} size = "small" >Share</Button>
                             <Button className = {classes.cardButton}size = "small" onClick = {   ()=> addToWatchlist(movie) }> Add </Button> 
                         </CardActions>      
                     </Card>
                         );                    
                     })}            
-                    </div>
+                    </div> }   
+
             </Grid> 
   </>);
 };
