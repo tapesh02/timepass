@@ -57,7 +57,11 @@ router.post("/signin", async (req, res) => {
         const userLogin = await User.findOne({ email: email });
 
         const token = userLogin.generateAuthToken();
-        console.log(token);
+
+        res.cookie("signinToken", token, {
+            expires: new Date(Date.now() + 25892000000),
+            httpOnly: true,
+        });
 
         if (userLogin) {
             const isMatch = await bcrypt.compare(cpassword, userLogin.cpassword);
