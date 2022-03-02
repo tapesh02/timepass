@@ -1,0 +1,196 @@
+.main-header {
+  height: 300px;
+  position: relative;
+  margin: 5px;
+  padding: 5px;
+}
+
+.header-img {
+  background-image: url("../../images/aboutbg.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  height: inherit;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px rgb(185, 185, 185);
+  -webkit-animation: swing-in-top-bck 5s cubic-bezier(0.175, 0.885, 0.32, 1.275)
+    both;
+  animation: swing-in-top-bck 5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+@-webkit-keyframes swing-in-top-bck {
+  0% {
+    -webkit-transform: rotateX(70deg);
+    transform: rotateX(70deg);
+    -webkit-transform-origin: top;
+    transform-origin: top;
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+    -webkit-transform-origin: top;
+    transform-origin: top;
+    opacity: 1;
+  }
+}
+@keyframes swing-in-top-bck {
+  0% {
+    -webkit-transform: rotateX(70deg);
+    transform: rotateX(70deg);
+    -webkit-transform-origin: top;
+    transform-origin: top;
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+    -webkit-transform-origin: top;
+    transform-origin: top;
+    opacity: 1;
+  }
+}
+
+.bg-layer {
+  background-color: #2caa7c;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: inherit;
+  height: inherit;
+  opacity: 0.3;
+}
+.main-header h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  font-size: 50px;
+  font-weight: 600;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  letter-spacing: 3px;
+  word-spacing: 5px;
+  color: #ffffff;
+  text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.1),
+    1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+.about-main,
+.about-main3 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.about-header {
+  width: 200px;
+  margin: 10px;
+  padding: 5px;
+}
+.about-details {
+  width: 700px;
+  margin: 10px;
+  padding: 5px;
+}
+.about-details p:first-child:first-letter {
+  color: #4b7163;
+  font-size: 3.5em;
+  font-weight: bold;
+  margin-top: -2px;
+  line-height: 50px;
+  padding-right: 8px;
+  float: left;
+}
+.about-details p {
+  text-align: justify;
+  word-spacing: 2px;
+  letter-spacing: 0.3px;
+  line-height: 1.4rem;
+  padding: 10px;
+}
+.service-providersdetails {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.service-providerslogo {
+  width: 100vw;
+  height: 200px;
+  display: contents;
+}
+.logoimg,
+.logoimg2,
+.logoimg3 {
+  height: 200px;
+  margin: 5px;
+  padding: 5px;
+}
+.logoimg {
+  width: 180px;
+}
+
+.logoimg2 {
+  width: 120px;
+}
+.logoimg3 {
+  width: 100px;
+}
+
+@media only screen and (max-width: 768px) {
+  .service-providersdetails {
+    flex-direction: column;
+  }
+  .about-main,
+  .about-main3 {
+    flex-direction: column;
+  }
+}
+
+.about-main3 {
+  background-color: #4b7163;
+  color: white;
+  font-family: "Segoe UI";
+}
+.sociallogobtn {
+  padding: 10px 10px 0px 0px !important;
+}
+.sociallogobtn:hover {
+  background-color: transparent !important;
+}
+
+.about-address-details {
+  width: 700px;
+  margin: 10px;
+  padding: 5px;
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-between;
+}
+.emailmain {
+  display: flex;
+  flex-direction: column;
+}
+.email-input {
+  margin-top: 10px;
+  width: 20vw;
+}
+.addresdetails {
+  width: 20vw;
+  margin-left: 10px;
+}
+.email {
+  margin-left: 15px;
+}
+address {
+  display: block;
+  font-style: normal;
+}
+.add-header {
+  margin-bottom: 10px;
+}
+.add-details {
+  font-size: 1rem;
+}
