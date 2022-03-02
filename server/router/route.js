@@ -1,5 +1,6 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const router = express.Router();
 
@@ -54,6 +55,9 @@ router.post("/signin", async (req, res) => {
         }
 
         const userLogin = await User.findOne({ email: email });
+
+        const token = userLogin.generateAuthToken();
+        console.log(token);
 
         if (userLogin) {
             const isMatch = await bcrypt.compare(cpassword, userLogin.cpassword);
