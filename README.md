@@ -11,7 +11,7 @@ credit me for this would be really appreciated.
 
 ## Description
 
-Deep dive into the world of entertainment by exploring moviehunt app. You can watch any movie trailer
+Deep dive into the world of entertainment by exploring timepass app. You can watch any movie trailer
 tv show trailer, see whats trending this week and filter based on your needs.
 
 ## New feature coming soon
