@@ -1,15 +1,15 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 
 const router = express.Router();
 
 require("../db/connection");
 const User = require("../model/newUserSchema");
+const Auth = require("../middleware/auth");
 
-router.get("/", (req, res) => {
-    res.send("hello am backend sever");
-});
+// router.get("/", (req, res) => {
+//     res.send("hello am backend sever");
+// });
 
 //Signup or  Register Part
 router.post("/signup", async (req, res) => {
@@ -56,15 +56,15 @@ router.post("/signin", async (req, res) => {
 
         const userLogin = await User.findOne({ email: email });
 
-        const token = userLogin.generateAuthToken();
-
-        res.cookie("signinToken", token, {
-            expires: new Date(Date.now() + 25892000000),
-            httpOnly: true,
-        });
-
         if (userLogin) {
             const isMatch = await bcrypt.compare(cpassword, userLogin.cpassword);
+
+            const token = await userLogin.generateAuthToken();
+            console.log("token ", token);
+
+            res.cookie("signinToken", token, {
+                expires: new Date(Date.now() + 25892000000),
+            });
 
             if (isMatch) {
                 return res.status(200).json({ message: "sigin in scuccessfully" });
@@ -77,6 +77,17 @@ router.post("/signin", async (req, res) => {
     } catch (error) {
         console.log(error);
     }
+});
+
+//Watchlist  Part
+router.get("/watchlist", Auth, (req, res) => {
+    res.send(req.rootuser);
+});
+
+//Signout  Part
+router.get("/signout", (req, res) => {
+    res.clearCookie("signinToken", { path: "/" });
+    res.status(200).send("signed out");
 });
 
 module.exports = router;
