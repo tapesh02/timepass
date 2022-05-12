@@ -1,31 +1,17 @@
 import React, { useState } from "react";
-
-import { Button, makeStyles, Typography } from "@material-ui/core";
-
-import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
-import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
 
 const useStyles = makeStyles((theme) => ({
-    filter: {
-        width: "95%",
-        height: "25px",
-        margin: "auto",
-        marginTop: "5px",
-        padding: "5px",
-        border: "solid 1x white",
-        borderRadius: "5px",
-        display: "flex",
-        color: "black",
-        boxShadow: " 0px 2px 3px gray",
-        justifyContent: "center",
-        alignItems: "center",
+    root: {
+        flexGrow: 1,
+        width: "100%",
+        backgroundColor: theme.palette.background.paper,
     },
 }));
 const Error = () => {
-    const classes = useStyles();
-
-    const [currentFilter, setCurrentFilter] = useState(0);
-
     const hotelCards = [
         {
             id: "1",
@@ -82,32 +68,26 @@ const Error = () => {
     ];
     const length = hotelCards.length;
 
-    const nextFilter = () => {
-        setCurrentFilter(currentFilter === length - 1 ? 0 : currentFilter + 1);
-    };
+    const classes = useStyles();
+    const [value, setValue] = useState(length);
 
-    const prevFilter = () => {
-        setCurrentFilter(currentFilter === 0 ? length - 1 : currentFilter - 1);
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+        console.log(event.target.textContent);
     };
-    console.log(currentFilter);
-
-    if (!Array.isArray(hotelCards) || hotelCards.length <= 0) {
-        return null;
-    }
 
     return (
-        <>
-            <div className={classes.filter}>
-                <KeyboardArrowLeftIcon color="inherit" onClick={nextFilter} />
-                {hotelCards.map((FGneres, FGneresId) => (
-                    <div style={{ textAlign: "center", padding: "2px", width: "300px" }} key={FGneresId}>
-                        {FGneresId === currentFilter && <Button>{FGneres.title}</Button>}
-                    </div>
-                ))}
-                <KeyboardArrowRightIcon color="inherit" onClick={prevFilter} />
-            </div>
-        </>
+        <div className={classes.root}>
+            <AppBar position="static" color="default">
+                <Tabs value={value} onChange={handleChange} aria-label="scrollable force tabs example" variant="scrollable" scrollButtons="on" indicatorColor="primary" textColor="primary">
+                    {hotelCards.map((FGneres) => (
+                        <Tab id={FGneres.id} label={FGneres.title}>
+                            {FGneres.title}
+                        </Tab>
+                    ))}
+                </Tabs>
+            </AppBar>
+        </div>
     );
 };
-
 export default Error;

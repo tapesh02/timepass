@@ -39,17 +39,37 @@ const useStyles = makeStyles((theme) => ({
         left: "50%",
         transform: "translate(-50%, -50%)",
         borderRadius: "15px",
+        [theme.breakpoints.down("xs")]: {
+            width: " 95%",
+            height: "auto",
+            top: "45%",
+        },
+        [theme.breakpoints.down("sm")]: {
+            width: "80%",
+        },
     },
     signup_outter: {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-evenly",
         margin: "5px",
+        [theme.breakpoints.down("xs")]: {
+            width: "100%",
+            flexDirection: "column",
+            justifyContent: "center",
+        },
+        [theme.breakpoints.down("sm")]: {
+            width: "90%",
+            height: "100%",
+        },
     },
     signup_innerimg: {
         width: "50%",
         height: "370px",
         margin: "5px",
+        [theme.breakpoints.down("xs")]: {
+            display: "none",
+        },
     },
     signupimage: {
         width: "100%",
@@ -68,6 +88,20 @@ const useStyles = makeStyles((theme) => ({
         alignContent: "center",
         justifyItems: "end",
         justifyContent: "space-around",
+        [theme.breakpoints.down("xs")]: {
+            width: "80%",
+            flexDirection: "column",
+            justifyContent: "center",
+            height: "auto",
+        },
+    },
+    outer_button: {
+        marginTop: "45px",
+        display: "flex",
+        justifyContent: "flex-end",
+        [theme.breakpoints.down("xs")]: {
+            margin: "20px 0px",
+        },
     },
 
     buttonStyle: {
@@ -90,27 +124,55 @@ const useStyles = makeStyles((theme) => ({
 
 const Signup = () => {
     const classes = useStyles();
+    const history = useHistory();
 
     const [userdetails, setUserdetails] = useState({
         username: "",
         email: "",
-        password: "",
-        retypepassword: "",
+        cpassword: "",
+        retypePassword: "",
     });
 
     const handleChangeUserdetail = (event) => {
         setUserdetails({ ...userdetails, [event.target.name]: event.target.value });
     };
-    const OnSubmitForm = (event) => {
+    //Use this for testing for forntend test with adding the OnsubmitForm fuction to form element
+    // const OnSubmitForm = (event) => {
+    //     event.preventDefault();
+    //     console.log(userdetails);
+    // };
+    const submitData = async (event) => {
         event.preventDefault();
-        console.log(userdetails);
+        const { username, email, cpassword, retypePassword } = userdetails;
+
+        const res = await fetch("/signup", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                username,
+                email,
+                cpassword,
+                retypePassword,
+            }),
+        });
+
+        const data = await res.json();
+
+        if (res.status === 422 || !data) {
+            window.alert("Unsuccessful registration");
+        } else {
+            window.alert("Successful registration");
+            history.push("/movies");
+        }
     };
 
     //useHistory is used to navigate from one component to other with useCallback
-    const history = useHistory();
+    const signInhistory = useHistory();
     const goToSignin = useCallback(() => {
-        history.push("/signin");
-    }, [history]);
+        signInhistory.push("/signin");
+    }, [signInhistory]);
 
     return (
         <>
@@ -126,15 +188,12 @@ const Signup = () => {
                                 </div>
                                 <div className={classes.imageIcons}>
                                     <IconButton disabled="false">
-                                        {" "}
                                         <YouTubeIcon style={{ color: "orange" }} /> <p style={{ fontSize: "16px", marginLeft: "5px" }}>Watch</p>
                                     </IconButton>
                                     <IconButton disabled="false">
-                                        {" "}
                                         <YouTubeIcon style={{ color: "orange" }} /> <p style={{ fontSize: "16px", marginLeft: "5px" }}>Share</p>{" "}
                                     </IconButton>
                                     <IconButton disabled="false">
-                                        {" "}
                                         <YouTubeIcon style={{ color: "orange" }} /> <p style={{ fontSize: "16px", marginLeft: "5px" }}>Like</p>
                                     </IconButton>
                                 </div>
@@ -143,7 +202,8 @@ const Signup = () => {
                             <Divider orientation="vertical" />
 
                             <div className={classes.signup_form}>
-                                <form onSubmit={OnSubmitForm} style={{ display: "flex", flexDirection: "column" }}>
+                                {/* <form onSubmit={OnSubmitForm} style={{ display: "flex", flexDirection: "column" }}> */}
+                                <form method="POST" style={{ display: "flex", flexDirection: "column" }}>
                                     <Typography varient="h5" style={{ margin: "5px", padding: "10px" }}>
                                         Welcome{" "}
                                     </Typography>
@@ -153,6 +213,7 @@ const Signup = () => {
                                         <OutlinedInput
                                             id="outlined-username-input"
                                             variant="outlined"
+                                            autoComplete="off"
                                             labelWidth={72}
                                             name="username"
                                             value={userdetails.username}
@@ -169,6 +230,7 @@ const Signup = () => {
                                         <OutlinedInput
                                             id="outlined-email-input"
                                             variant="outlined"
+                                            autoComplete="off"
                                             labelWidth={40}
                                             type="email"
                                             name="email"
@@ -182,14 +244,14 @@ const Signup = () => {
                                         />
                                     </FormControl>
                                     <FormControl variant="outlined" size="small" style={{ marginTop: "5px", marginBottom: "5px" }}>
-                                        <InputLabel htmlFor="outlined-password-input">Create password</InputLabel>
+                                        <InputLabel htmlFor="outlined-cpassword-input">Create password</InputLabel>
                                         <OutlinedInput
-                                            id="outlined-password-input"
+                                            id="outlined-cpassword-input"
                                             variant="outlined"
                                             labelWidth={120}
                                             type="password"
-                                            name="password"
-                                            value={userdetails.password}
+                                            name="cpassword"
+                                            value={userdetails.cpassword}
                                             onChange={handleChangeUserdetail}
                                             startAdornment={
                                                 <InputAdornment position="start">
@@ -199,14 +261,14 @@ const Signup = () => {
                                         />
                                     </FormControl>
                                     <FormControl variant="outlined" size="small" style={{ marginTop: "5px", marginBottom: "5px" }}>
-                                        <InputLabel htmlFor="outlined-retypepassword-input">Retype password</InputLabel>
+                                        <InputLabel htmlFor="outlined-retypePassword-input">Retype password</InputLabel>
                                         <OutlinedInput
-                                            id="outlined-retypepassword-input"
+                                            id="outlined-retypePassword-input"
                                             variant="outlined"
                                             labelWidth={125}
                                             type="password"
-                                            name="retypepassword"
-                                            value={userdetails.retypepassword}
+                                            name="retypePassword"
+                                            value={userdetails.retypePassword}
                                             onChange={handleChangeUserdetail}
                                             startAdornment={
                                                 <InputAdornment position="start">
@@ -216,13 +278,8 @@ const Signup = () => {
                                         />
                                     </FormControl>
 
-                                    <div
-                                        style={{
-                                            marginTop: "45px",
-                                            display: "flex",
-                                            justifyContent: "flex-end",
-                                        }}>
-                                        <Button className={classes.buttonStyle} style={{ marginRight: "5px" }} type="submit">
+                                    <div className={classes.outer_button}>
+                                        <Button className={classes.buttonStyle} style={{ marginRight: "5px" }} type="submit" onClick={submitData}>
                                             Signup
                                         </Button>
                                         <Button className={classes.buttonStyle} style={{ marginLeft: "5px" }} onClick={goToSignin}>

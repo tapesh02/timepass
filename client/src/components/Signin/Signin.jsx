@@ -38,17 +38,37 @@ const useStyles = makeStyles((theme) => ({
         left: "50%",
         transform: "translate(-50%, -50%)",
         borderRadius: "15px",
+        [theme.breakpoints.down("xs")]: {
+            width: " 95%",
+            height: "auto",
+            top: "45%",
+        },
+        [theme.breakpoints.down("sm")]: {
+            width: "80%",
+        },
     },
     Signin_outter: {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-evenly",
         margin: "5px",
+        [theme.breakpoints.down("xs")]: {
+            width: "100%",
+            flexDirection: "column",
+            justifyContent: "center",
+        },
+        [theme.breakpoints.down("sm")]: {
+            width: "90%",
+            height: "100%",
+        },
     },
     Signin_innerimg: {
         width: "50%",
         height: "370px",
         margin: "5px",
+        [theme.breakpoints.down("xs")]: {
+            display: "none",
+        },
     },
     Signinimage: {
         width: "100%",
@@ -68,8 +88,22 @@ const useStyles = makeStyles((theme) => ({
         alignContent: "center",
         justifyItems: "end",
         justifyContent: "space-around",
+        [theme.breakpoints.down("xs")]: {
+            width: "80%",
+            flexDirection: "column",
+            justifyContent: "center",
+            height: "auto",
+        },
     },
 
+    outer_button: {
+        marginTop: "45px",
+        display: "flex",
+        justifyContent: "flex-end",
+        [theme.breakpoints.down("xs")]: {
+            margin: "20px 0px",
+        },
+    },
     buttonStyle: {
         fontSize: "0.8rem",
         textTransform: "capitalize",
@@ -90,22 +124,43 @@ const useStyles = makeStyles((theme) => ({
 
 const Signin = () => {
     const classes = useStyles();
+    const history = useHistory();
 
-    const [user, setUser] = useState({
-        userEmail: "",
-        enterPassword: "",
-    });
+    const [email, setEmail] = useState("");
+    const [cpassword, setCpassword] = useState("");
 
-    const handleChangeLogIndetail = (event) => {
-        setUser({ ...user, [event.target.name]: event.target.value });
+    const handleChangeEmail = (event) => {
+        setEmail(event.target.value);
     };
-    const OnSubmitLoginForm = (event) => {
+    const handleChangeCpassword = (event) => {
+        setCpassword(event.target.value);
+    };
+
+    const OnSubmitLoginForm = async (event) => {
         event.preventDefault();
-        console.log(user);
+
+        const res = await fetch("/signin", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email,
+                cpassword,
+            }),
+        });
+
+        const data = res.json();
+
+        if (res.status === 400 || !data) {
+            window.alert("Invalid Credentials");
+        } else {
+            window.alert("Sign in Successful");
+            history.push("/movies");
+        }
     };
 
     //useHistory is used to navigate from one component to other with useCallback
-    const history = useHistory();
     const goToSignup = useCallback(() => {
         history.push("/signup");
     }, [history]);
@@ -141,21 +196,21 @@ const Signin = () => {
                             <Divider orientation="vertical" />
 
                             <div className={classes.Signin_form}>
-                                <form onSubmit={OnSubmitLoginForm} style={{ display: "flex", flexDirection: "column" }}>
+                                <form method="POST" style={{ display: "flex", flexDirection: "column" }}>
                                     <Typography varient="h5" style={{ margin: "5px", padding: "10px" }}>
                                         Welcome back..{" "}
                                     </Typography>
 
                                     <FormControl variant="outlined" size="small" style={{ marginTop: "5px", marginBottom: "5px" }}>
-                                        <InputLabel htmlFor="outlined-userEmail-input">Enter Email</InputLabel>
+                                        <InputLabel htmlFor="outlined-email-input">Enter Email</InputLabel>
                                         <OutlinedInput
-                                            id="outlined-userEmail-input"
+                                            id="outlined-email-input"
                                             variant="outlined"
                                             labelWidth={80}
                                             type="email"
-                                            name="userEmail"
-                                            value={user.userEmail}
-                                            onChange={handleChangeLogIndetail}
+                                            name="email"
+                                            value={email}
+                                            onChange={handleChangeEmail}
                                             startAdornment={
                                                 <InputAdornment position="start">
                                                     <EmailIcon className={classes.iconStyle} />
@@ -164,15 +219,15 @@ const Signin = () => {
                                         />
                                     </FormControl>
                                     <FormControl variant="outlined" size="small" style={{ marginTop: "5px", marginBottom: "5px" }}>
-                                        <InputLabel htmlFor="outlined-enterPassword-input">Enter password</InputLabel>
+                                        <InputLabel htmlFor="outlined-cpassword-input">Enter password</InputLabel>
                                         <OutlinedInput
-                                            id="outlined-enterPassword-input"
+                                            id="outlined-cpassword-input"
                                             variant="outlined"
                                             labelWidth={120}
                                             type="password"
-                                            name="enterPassword"
-                                            value={user.enterPassword}
-                                            onChange={handleChangeLogIndetail}
+                                            name="cpassword"
+                                            value={cpassword}
+                                            onChange={handleChangeCpassword}
                                             startAdornment={
                                                 <InputAdornment position="start">
                                                     <LockIcon className={classes.iconStyle} />
@@ -185,13 +240,8 @@ const Signin = () => {
                                         Forget Password? <span style={{ color: "red", cursor: "pointer" }}>Click here </span>
                                     </p>
 
-                                    <div
-                                        style={{
-                                            marginTop: "130px",
-                                            display: "flex",
-                                            justifyContent: "flex-end",
-                                        }}>
-                                        <Button className={classes.buttonStyle} style={{ marginRight: "5px" }} type="submit">
+                                    <div className={classes.outer_button}>
+                                        <Button className={classes.buttonStyle} style={{ marginRight: "5px" }} type="submit" onClick={OnSubmitLoginForm}>
                                             Signin
                                         </Button>
                                         <Button className={classes.buttonStyle} style={{ marginLeft: "5px" }} onClick={goToSignup}>

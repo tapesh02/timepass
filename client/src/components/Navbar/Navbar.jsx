@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
 
@@ -27,6 +27,12 @@ const Navbar = ({ handleChange, searchText }) => {
         setAnchorEl(null);
     }, [history]);
 
+    const signoutHistory = useHistory();
+    const goToSignout = useCallback(() => {
+        history.push("/signout");
+        setAnchorEl(null);
+    }, [signoutHistory]);
+
     const watchhistory = useHistory();
     const goToWatchlist = useCallback(() => {
         watchhistory.push("/watchlist");
@@ -35,7 +41,7 @@ const Navbar = ({ handleChange, searchText }) => {
 
     const moviesHistory = useHistory();
     const goToMovies = useCallback(() => {
-        moviesHistory.push("/Movies");
+        moviesHistory.push("/movies");
         setAnchorEl(null);
     }, [moviesHistory]);
 
@@ -67,10 +73,12 @@ const Navbar = ({ handleChange, searchText }) => {
     return (
         <>
             <div>
-                <AppBar style={{ backgroundColor: "red" }} position="static">
+                <AppBar style={{ backgroundColor: "#0e0d0d" }} position="static">
                     <Toolbar>
                         <Typography style={{ flexGrow: 1 }}>
-                            <LogoComponent />
+                            <Link to="/home">
+                                <LogoComponent />
+                            </Link>
                         </Typography>
                         <NavDesktop
                             handleChange={handleChange}
@@ -82,6 +90,7 @@ const Navbar = ({ handleChange, searchText }) => {
                             closeMenu={closeMenu}
                             goToSignin={goToSignin}
                             goToWatchlist={goToWatchlist}
+                            goToSignout={goToSignout}
                         />
                         <NavMobile />
                     </Toolbar>

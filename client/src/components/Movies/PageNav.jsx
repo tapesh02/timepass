@@ -5,9 +5,11 @@ import { makeStyles } from "@material-ui/core";
 const useStyle = makeStyles((theme) => ({
     stylepages: {
         width: "100% !important",
+        margin: "5px",
         alignContent: "center",
         justifyContent: "center",
         display: "flex",
+        background: "#ffffff47",
     },
 }));
 

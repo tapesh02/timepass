@@ -7,19 +7,20 @@ import PageNav from "./PageNav";
 import FilterNav from "./FilterNav";
 import useGenres from "../../hooks/useGenres";
 import Trending from "./Trending";
-import VideoModal from "./VideoModal";
+import VideoModal from "./VideoModals/VideoModal";
 
 const useStyles = makeStyles((theme) => ({
-    cardButton: {
+    root: {
+        minWidth: "15px",
         "&:hover": {
             backgroundColor: "#356E44",
             color: "white",
         },
     },
     cardMain: {
-        width: "200px",
-        height: "260px",
-        margin: "10px",
+        width: "200",
+        height: "260",
+        margin: "10",
         "&:hover": {
             boxShadow: "5px 3px 5px gray",
         },
@@ -172,7 +173,7 @@ const TvShows = (props) => {
                                     ) : (
                                         tvData.filter(tfilterData).map((tvshows) => {
                                             return (
-                                                <Grid item xs={6} sm={6} md={2} lg={2} xl={2} key={tvshows.id}>
+                                                <Grid item xs={6} sm={3} md={2} lg={2} xl={2} key={tvshows.id}>
                                                     <Card className={classes.cardMain}>
                                                         <CardActionArea>
                                                             <CardMedia
@@ -193,7 +194,7 @@ const TvShows = (props) => {
                                                         </CardActionArea>
                                                         <CardActions style={{ justifyContent: "space-evenly" }}>
                                                             <Button
-                                                                className={classes.cardButton}
+                                                                className={classes.root}
                                                                 size="small"
                                                                 onClick={() => {
                                                                     handleWatchOpenTv(tvshows);
@@ -201,10 +202,10 @@ const TvShows = (props) => {
                                                                 }}>
                                                                 Watch
                                                             </Button>
-                                                            <Button className={classes.cardButton} size="small">
+                                                            <Button className={classes.root} size="small">
                                                                 Share
                                                             </Button>
-                                                            <Button className={classes.cardButton} size="small" onClick={() => addToWatchlist(tvshows)}>
+                                                            <Button className={classes.root} size="small" onClick={() => addToWatchlist(tvshows)}>
                                                                 Add
                                                             </Button>
                                                         </CardActions>

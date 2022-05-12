@@ -5,10 +5,10 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 const useStyles = makeStyles((theme) => ({
     showMobile: {
-        [theme.breakpoints.down("sm")]: {
+        [theme.breakpoints.down("xs")]: {
             display: "flex",
         },
-        [theme.breakpoints.up("md")]: {
+        [theme.breakpoints.up("sm")]: {
             display: "none",
         },
     },

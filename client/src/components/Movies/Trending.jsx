@@ -4,19 +4,20 @@ import Rating from "@material-ui/lab/Rating";
 import "./Movies.css";
 import NotFound from "./NotFound";
 import { wList } from "../../Context.js";
-import VideoModal from "./VideoModal";
+import VideoModal from "./VideoModals/VideoModal";
 
 const useStyles = makeStyles((theme) => ({
-    cardButton: {
+    root: {
+        minWidth: "15px",
         "&:hover": {
             backgroundColor: "#356E44",
             color: "white",
         },
     },
     cardMain: {
-        width: "200px",
-        height: "260px",
-        margin: "10px",
+        width: "200",
+        height: "260",
+        margin: "10",
         "&:hover": {
             boxShadow: "5px 3px 5px gray",
         },
@@ -109,66 +110,64 @@ const Trending = ({
 
     return (
         <>
-            <Grid item xs container direction="column" justifyContent="flex-start" alignItems="flex-start" style={{ backgroundColor: "black", width: "100%", height: "100%" }}>
-                {watchTrendingVideo === true ? (
-                    <VideoModal handleWatchClose={handleWatchClose} movieVideoId={movieVideoId} handleWatchCloseTv={handleWatchCloseTv} tvId={tvId} />
-                ) : (
-                    <Container>
-                        <Grid container spacing={1} alignItems="center">
-                            {movieData.length === 0 ? (
-                                <NotFound notfound={searchText} />
-                            ) : (
-                                movieData.map((movie) => {
-                                    return (
-                                        <Grid item xs={6} sm={6} md={2} lg={2} xl={2} key={movie.id}>
-                                            <Card className={classes.cardMain}>
-                                                <CardActionArea>
-                                                    <CardMedia
-                                                        height="150"
-                                                        component="img"
-                                                        className="cardImage"
-                                                        image={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-                                                        alt="movie poster"
-                                                        title={movie.media_type === "movie" ? movie.title : movie.name}
-                                                    />
-                                                    <CardContent className={classes.cardContent}>
-                                                        <Typography className={classes.movieTitle}> {movie.media_type === "movie" ? movie.title : movie.name} </Typography>
-                                                        <Typography className={classes.typography1} variant="body2" component="p">
-                                                            {" "}
-                                                            {movie.media_type === "movie" ? movie.release_date : movie.first_air_date}
-                                                        </Typography>
-                                                        <Rating className={classes.typography2} name="ratings" value={movie.vote_average / 2} precision={0.5} readOnly />
-                                                    </CardContent>
-                                                </CardActionArea>
-                                                <CardActions style={{ justifyContent: "space-evenly" }}>
-                                                    <Button
-                                                        className={classes.cardButton}
-                                                        size="small"
-                                                        onClick={() => {
-                                                            {
-                                                                window.location.pathname === "/movies" ? handleWatchOpen(movie) : handleWatchOpenTv(movie);
-                                                            }
-                                                            setWatchTrendingVideo(true);
-                                                        }}>
-                                                        Watch
-                                                    </Button>
-                                                    <Button className={classes.cardButton} size="small">
-                                                        Share
-                                                    </Button>
-                                                    <Button className={classes.cardButton} size="small" onClick={() => addToWatchlist(movie)}>
+            {watchTrendingVideo === true ? (
+                <VideoModal handleWatchClose={handleWatchClose} movieVideoId={movieVideoId} handleWatchCloseTv={handleWatchCloseTv} tvId={tvId} />
+            ) : (
+                <Container style={{ marginBottom: "10px" }}>
+                    <Grid container spacing={1} alignItems="center">
+                        {movieData.length === 0 ? (
+                            <NotFound notfound={searchText} />
+                        ) : (
+                            movieData.map((movie) => {
+                                return (
+                                    <Grid item xs={6} sm={3} md={2} lg={2} xl={2} key={movie.id}>
+                                        <Card className={classes.cardMain}>
+                                            <CardActionArea>
+                                                <CardMedia
+                                                    height="150"
+                                                    component="img"
+                                                    className="cardImage"
+                                                    image={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                                                    alt="movie poster"
+                                                    title={movie.media_type === "movie" ? movie.title : movie.name}
+                                                />
+                                                <CardContent className={classes.cardContent}>
+                                                    <Typography className={classes.movieTitle}> {movie.media_type === "movie" ? movie.title : movie.name} </Typography>
+                                                    <Typography className={classes.typography1} variant="body2" component="p">
                                                         {" "}
-                                                        Add{" "}
-                                                    </Button>
-                                                </CardActions>
-                                            </Card>
-                                        </Grid>
-                                    );
-                                })
-                            )}
-                        </Grid>
-                    </Container>
-                )}
-            </Grid>
+                                                        {movie.media_type === "movie" ? movie.release_date : movie.first_air_date}
+                                                    </Typography>
+                                                    <Rating className={classes.typography2} name="ratings" value={movie.vote_average / 2} precision={0.5} readOnly />
+                                                </CardContent>
+                                            </CardActionArea>
+                                            <CardActions style={{ justifyContent: "space-evenly" }}>
+                                                <Button
+                                                    className={classes.root}
+                                                    size="small"
+                                                    onClick={() => {
+                                                        {
+                                                            window.location.pathname === "/movies" ? handleWatchOpen(movie) : handleWatchOpenTv(movie);
+                                                        }
+                                                        setWatchTrendingVideo(true);
+                                                    }}>
+                                                    Watch
+                                                </Button>
+                                                <Button className={classes.root} size="small">
+                                                    Share
+                                                </Button>
+                                                <Button className={classes.root} size="small" onClick={() => addToWatchlist(movie)}>
+                                                    {" "}
+                                                    Add{" "}
+                                                </Button>
+                                            </CardActions>
+                                        </Card>
+                                    </Grid>
+                                );
+                            })
+                        )}
+                    </Grid>
+                </Container>
+            )}
         </>
     );
 };

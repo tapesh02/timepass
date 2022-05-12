@@ -8,10 +8,11 @@ import PageNav from "./PageNav.jsx";
 import FilterNav from "./FilterNav";
 import useGenres from "../../hooks/useGenres";
 import Trending from "./Trending";
-import VideoModal from "./VideoModal";
+import VideoModal from "./VideoModals/VideoModal";
 
 const useStyles = makeStyles((theme) => ({
-    cardButton: {
+    root: {
+        minWidth: "15px",
         "&:hover": {
             backgroundColor: "#356E44",
             color: "white",
@@ -65,7 +66,7 @@ const Movies = (props) => {
     const [selectedGenres, setSelectedGenres] = useState([]);
 
     const [watchMovieVideo, setWatchMovieVideo] = useState(false);
-    const [watchTrendingVideo, setWatchTrendingVideo] = useState();
+    const [watchTrendingVideo, setWatchTrendingVideo] = useState(false);
     const [movieVideoId, setMovieVideoId] = useState([]);
     const [showTrending, setShowTrending] = useState(false);
 
@@ -155,14 +156,14 @@ const Movies = (props) => {
                         {watchMovieVideo === true ? (
                             <VideoModal handleWatchClose={handleWatchClose} movieVideoId={movieVideoId} />
                         ) : (
-                            <Container>
+                            <Container style={{ marginBottom: "10px" }}>
                                 <Grid container spacing={1} alignItems="center">
                                     {movieData.length === 0 ? (
                                         <NotFound />
                                     ) : (
                                         movieData.filter(filterData).map((movie) => {
                                             return (
-                                                <Grid item xs={6} sm={6} md={2} lg={2} xl={2} key={movie.id}>
+                                                <Grid item xs={6} sm={3} md={2} lg={2} xl={2} key={movie.id}>
                                                     <Card className={classes.cardMain}>
                                                         <CardActionArea>
                                                             <CardMedia
@@ -184,7 +185,7 @@ const Movies = (props) => {
                                                         </CardActionArea>
                                                         <CardActions style={{ justifyContent: "space-evenly" }}>
                                                             <Button
-                                                                className={classes.cardButton}
+                                                                className={classes.root}
                                                                 size="small"
                                                                 onClick={() => {
                                                                     handleWatchOpen(movie);
@@ -192,10 +193,10 @@ const Movies = (props) => {
                                                                 }}>
                                                                 Watch
                                                             </Button>
-                                                            <Button className={classes.cardButton} size="small">
+                                                            <Button className={classes.root} size="small">
                                                                 Share
                                                             </Button>
-                                                            <Button className={classes.cardButton} size="small" onClick={() => addToWatchlist(movie)}>
+                                                            <Button className={classes.root} size="small" onClick={() => addToWatchlist(movie)}>
                                                                 Add
                                                             </Button>
                                                         </CardActions>

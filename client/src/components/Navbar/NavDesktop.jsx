@@ -9,10 +9,10 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 const useStyles = makeStyles((theme) => ({
     showDesktop: {
         backgroundColor: "#0e0d0d",
-        [theme.breakpoints.down("sm")]: {
+        [theme.breakpoints.down("xs")]: {
             display: "none",
         },
-        [theme.breakpoints.up("md")]: {
+        [theme.breakpoints.up("sm")]: {
             display: "flex",
         },
     },
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
 }));
-const NavDesktop = ({ handleChange, searchText, handleKeyPress, handleClick, openMenu, anchorEl, closeMenu, goToSignin, goToWatchlist }) => {
+const NavDesktop = ({ handleChange, searchText, handleKeyPress, handleClick, openMenu, anchorEl, closeMenu, goToSignin, goToWatchlist, goToSignout }) => {
     const classes = useStyles();
     const open = Boolean(anchorEl);
 
@@ -65,9 +65,9 @@ const NavDesktop = ({ handleChange, searchText, handleKeyPress, handleClick, ope
                     <AccountCircleIcon fontSize="small" color="primary" />
                 </IconButton>
                 <Menu id="menu" anchorEl={anchorEl} keepMounted open={open} onClose={closeMenu} TransitionComponent={Fade}>
-                    <MenuItem onClick={goToSignin}> Profile</MenuItem>
+                    <MenuItem onClick={goToSignin}> Sign In</MenuItem>
                     <MenuItem onClick={goToWatchlist}> Watchlist</MenuItem>
-                    <MenuItem onClick={closeMenu}> Sign Out</MenuItem>
+                    <MenuItem onClick={goToSignout}> Sign Out</MenuItem>
                 </Menu>
             </Box>
         </>

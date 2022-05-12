@@ -1,8 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Button, Chip, makeStyles, Grow } from "@material-ui/core";
+import { Button, Chip, makeStyles, Grow, Paper, Box } from "@material-ui/core";
 import DoneIcon from "@material-ui/icons/Done";
 
 const useStyle = makeStyles((theme) => ({
+    root: {
+        // using classname
+        minWidth: "45px",
+        "& .MuiButton-label": {
+            [theme.breakpoints.down("xs")]: {
+                fontSize: "8px",
+            },
+        },
+    },
+
     filtermain: {
         color: "white",
         width: "98%",
@@ -10,17 +20,25 @@ const useStyle = makeStyles((theme) => ({
         marginBottom: "10px",
         fontWeight: "bold",
         display: "flex",
-        justifyContent: "space-between",
         backgroundColor: "white",
-        border: "1px solid green",
+        border: "1px solid white",
         borderRadius: "5px",
+        [theme.breakpoints.down("xs")]: {
+            justifyContent: "center",
+        },
+    },
+
+    hiddenSpan: {
+        flexGrow: "2",
+        [theme.breakpoints.down("xs")]: {
+            flexGrow: "0",
+        },
     },
 }));
 
 const FilterNav = ({ genres, setGenres, selectedGenres, setSelectedGenres, setPage, setShowTrending, showTrending }) => {
+    const classes = useStyle();
     const [showGenresFilter, setShowGenresFilter] = useState(false);
-
-    const styles = useStyle();
 
     const handleAddGenresFilter = (genre) => {
         setSelectedGenres([...selectedGenres, genre]);
@@ -55,34 +73,38 @@ const FilterNav = ({ genres, setGenres, selectedGenres, setSelectedGenres, setPa
 
     return (
         <>
-            <div className={styles.filtermain}>
-                <div>
-                    <Button>Recently Added </Button>
-                    <Button color={showTrending === true ? "secondary" : "default"} onClick={handleTrending}>
-                        Most Popular
-                    </Button>
-                </div>
-                <div>
-                    <Button>Year</Button>
-                    <Button color={showGenresFilter ? "secondary" : "default"} aria-controls="genresId" aria-haspopup="true" onClick={() => setShowGenresFilter(!showGenresFilter)}>
-                        Genre
-                    </Button>
-                    <Button>Language</Button>
-                    <Button>Sort by</Button>
-                </div>
-            </div>
+            <Paper className={classes.filtermain}>
+                <Button className={classes.root}>Recently Added </Button>
+                <Button className={classes.root} color={showTrending === true ? "secondary" : "default"} onClick={handleTrending}>
+                    Trending
+                </Button>
+                <span className={classes.hiddenSpan}></span>
+                <Button className={classes.root}>Year</Button>
+                <Button
+                    className={classes.root}
+                    color={showGenresFilter ? "secondary" : "default"}
+                    aria-controls="genresId"
+                    aria-haspopup="true"
+                    onClick={() => setShowGenresFilter(!showGenresFilter)}>
+                    Genre
+                </Button>
+                <Button className={classes.root}>Language</Button>
+                <Button className={classes.root}>Sort by</Button>
+            </Paper>
 
             {showGenresFilter ? (
                 <Grow in={showGenresFilter} style={{ transformOrigin: "0 0 0" }} {...(showGenresFilter ? { timeout: 1000 } : {})}>
-                    <div style={{ margin: "3px ", padding: "3px" }}>
+                    <Box style={{ margin: "3px ", padding: "3px" }}>
                         {selectedGenres?.map((genre) => (
                             <Chip
                                 variant="outlined"
                                 size="small"
                                 style={{
-                                    backgroundColor: "whitesmoke",
+                                    backgroundColor: "green",
+                                    margin: "3px 2px",
                                     borderColor: "none",
-                                    color: "green",
+                                    color: "whitesmoke",
+                                    fontWeight: "400",
                                 }}
                                 clickable
                                 label={genre.name}
@@ -95,9 +117,7 @@ const FilterNav = ({ genres, setGenres, selectedGenres, setSelectedGenres, setPa
                                 variant="outlined"
                                 size="small"
                                 style={{
-                                    marginTop: "3px",
-                                    marginLeft: "2px",
-                                    marginRight: "2px",
+                                    margin: "3px 2px",
                                     backgroundColor: "whitesmoke",
                                     borderColor: "none",
                                 }}
@@ -108,7 +128,7 @@ const FilterNav = ({ genres, setGenres, selectedGenres, setSelectedGenres, setPa
                                 onClick={() => handleAddGenresFilter(genre)}
                             />
                         ))}
-                    </div>
+                    </Box>
                 </Grow>
             ) : null}
         </>

@@ -6,6 +6,7 @@ import Home from "./components/Home/Home.jsx";
 import About from "./components/About/About.jsx";
 import Signup from "./components/Signup/Signup.jsx";
 import Signin from "./components/Signin/Signin.jsx";
+import Signout from "./components/Signout/Signout.jsx";
 import Movies from "./components/Movies/Movies.jsx";
 import Watchlist from "./components/Movies/Watchlist.jsx";
 import Error from "./components/Error/Error.jsx";
@@ -34,6 +35,7 @@ function App() {
                 <Route exact path="/watchlist" component={Watchlist} />
                 <Route exact path="/signup" component={Signup} />
                 <Route exact path="/signin" component={Signin} />
+                <Route exact path="/signout" component={Signout} />
                 <Route component={Error} />
             </Switch>
         </>
