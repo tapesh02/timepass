@@ -164,15 +164,13 @@ const Signup = () => {
             window.alert("Unsuccessful registration");
         } else {
             window.alert("Successful registration");
-            history.push("/movies");
+            history.push("/signin");
         }
     };
 
-    //useHistory is used to navigate from one component to other with useCallback
-    const signInhistory = useHistory();
     const goToSignin = useCallback(() => {
-        signInhistory.push("/signin");
-    }, [signInhistory]);
+        history.push("/signin");
+    }, [history]);
 
     return (
         <>
@@ -202,7 +200,7 @@ const Signup = () => {
                             <Divider orientation="vertical" />
 
                             <div className={classes.signup_form}>
-                                {/* <form onSubmit={OnSubmitForm} style={{ display: "flex", flexDirection: "column" }}> */}
+                                {/* <form onSubmit={OnSubmitForm} style={{ display: "flex", flexDirection: "column" }}> // for testing purpose only   */}
                                 <form method="POST" style={{ display: "flex", flexDirection: "column" }}>
                                     <Typography varient="h5" style={{ margin: "5px", padding: "10px" }}>
                                         Welcome{" "}

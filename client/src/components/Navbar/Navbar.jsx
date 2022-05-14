@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import { AppBar, Snackbar, Toolbar, Typography } from "@material-ui/core";
@@ -10,11 +10,18 @@ import NavDesktop from "./NavDesktop";
 import LogoComponent from "../Logo/LogoComponent";
 
 import "./Navbar.css";
+import { globalContext } from "../../Context/Context";
 
-const Navbar = ({ handleChange, searchText }) => {
+const Navbar = () => {
     const history = useHistory();
     const [anchorEl, setAnchorEl] = useState(null);
     const [showError, setShowError] = useState(false);
+
+    const { handleChange, searchText } = useContext(globalContext);
+
+    const Alert = (props) => {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    };
 
     const openMenu = (event) => {
         setAnchorEl(event.currentTarget);
@@ -40,10 +47,6 @@ const Navbar = ({ handleChange, searchText }) => {
             history.push("/movies");
             setAnchorEl(null);
         }
-    };
-
-    const Alert = (props) => {
-        return <MuiAlert elevation={6} variant="filled" {...props} />;
     };
 
     return (
@@ -79,7 +82,6 @@ const Navbar = ({ handleChange, searchText }) => {
                 autoHideDuration={3000}>
                 <Alert severity="error">Please enter search text !</Alert>
             </Snackbar>
-            ;
         </>
     );
 };

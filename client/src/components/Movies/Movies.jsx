@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Movies = (props) => {
+const Movies = () => {
     const classes = useStyles();
 
     const [movieData, setMovieData] = useState([]);
@@ -70,13 +70,13 @@ const Movies = (props) => {
     const [movieVideoId, setMovieVideoId] = useState([]);
     const [showTrending, setShowTrending] = useState(false);
 
-    const { watchlist, setWatchlist, page, setPage, numberOfPages, setNumberOfPages } = useContext(globalContext);
+    const { searchText, watchlist, setWatchlist, page, setPage, numberOfPages, setNumberOfPages } = useContext(globalContext);
     const gUrl = useGenres(selectedGenres);
 
     const filterData = (val) => {
-        if (props.searchText === "") {
+        if (searchText === "") {
             return val;
-        } else if (val.title?.toLowerCase().includes(props.searchText?.toLowerCase())) {
+        } else if (val.title?.toLowerCase().includes(searchText?.toLowerCase())) {
             return val;
         }
     };
@@ -97,10 +97,10 @@ const Movies = (props) => {
     };
     useEffect(() => {
         const getMovieList = async () => {
-            const movieSearchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&query=${props.searchText}&page=${page}`;
+            const movieSearchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&query=${searchText}&page=${page}`;
             const discoverMovieUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${gUrl}`;
 
-            const response = await fetch(props.searchText === "" && selectedGenres ? discoverMovieUrl : movieSearchUrl);
+            const response = await fetch(searchText === "" && selectedGenres ? discoverMovieUrl : movieSearchUrl);
             try {
                 const responseJson = await response.json();
                 const data = responseJson.results;
@@ -114,7 +114,7 @@ const Movies = (props) => {
 
         getMovieList();
         // eslint-disable-next-line
-    }, [props.searchText, gUrl, page]);
+    }, [searchText, gUrl, page]);
 
     useEffect(() => {
         setPage(1);
@@ -142,7 +142,7 @@ const Movies = (props) => {
 
                 {showTrending === true ? (
                     <Trending
-                        searchText={props.searchText}
+                        searchText={searchText}
                         watchMovieVideo={watchMovieVideo}
                         watchTrendingVideo={watchTrendingVideo}
                         setWatchTrendingVideo={setWatchTrendingVideo}
@@ -158,7 +158,7 @@ const Movies = (props) => {
                             <Container style={{ marginBottom: "10px" }}>
                                 <Grid container spacing={1} alignItems="center">
                                     {movieData.length === 0 ? (
-                                        <NotFound searchText={props.searchText} />
+                                        <NotFound searchText={searchText} />
                                     ) : (
                                         movieData.filter(filterData).map((movie) => {
                                             return (

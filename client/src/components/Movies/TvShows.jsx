@@ -66,9 +66,9 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "5px",
     },
 }));
-const TvShows = (props) => {
+const TvShows = () => {
     const classes = useStyles();
-    const { watchlist, setWatchlist, page, setPage, numberOfPages, setNumberOfPages } = useContext(globalContext);
+    const { searchText, watchlist, setWatchlist, page, setPage, numberOfPages, setNumberOfPages } = useContext(globalContext);
     const [tvData, setTvData] = useState([]);
     const [genres, setGenres] = useState([]);
     const [selectedGenres, setSelectedGenres] = useState([]);
@@ -80,9 +80,9 @@ const TvShows = (props) => {
     const gUrl = useGenres(selectedGenres);
 
     const tfilterData = (val) => {
-        if (props.searchText === "") {
+        if (searchText === "") {
             return val;
-        } else if (val.name?.toLowerCase().includes(props.searchText?.toLowerCase())) {
+        } else if (val.name?.toLowerCase().includes(searchText?.toLowerCase())) {
             return val;
         }
     };
@@ -108,11 +108,11 @@ const TvShows = (props) => {
         const getTvshowList = async () => {
             // eslint-disable-next-line
             const tvshowTrendingAPI = `https://api.themoviedb.org/3/trending/tv/week?api_key=${process.env.REACT_APP_API_KEY}&page=${page}`;
-            const searchtvUrl = `https://api.themoviedb.org/3/search/tv?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&query=${props.searchText}&page=${page}`;
+            const searchtvUrl = `https://api.themoviedb.org/3/search/tv?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&query=${searchText}&page=${page}`;
             const discoverTvUrl = `https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${gUrl}`;
-            //const tresponse = await fetch (props.searchText ===""? tvshowTrendingAPI : searchtvUrl);
+            //const tresponse = await fetch (searchText ===""? tvshowTrendingAPI : searchtvUrl);
 
-            const tresponse = await fetch(props.searchText === "" && selectedGenres ? discoverTvUrl : searchtvUrl);
+            const tresponse = await fetch(searchText === "" && selectedGenres ? discoverTvUrl : searchtvUrl);
             try {
                 const tresponseJson = await tresponse.json();
                 const tdata = tresponseJson.results;
@@ -125,7 +125,7 @@ const TvShows = (props) => {
         };
         getTvshowList();
         // eslint-disable-next-line
-    }, [props.searchText, gUrl, page]);
+    }, [searchText, gUrl, page]);
 
     useEffect(() => {
         setPage(1);
@@ -153,7 +153,7 @@ const TvShows = (props) => {
                 />
                 {showTrending ? (
                     <Trending
-                        searchText={props.searchText}
+                        searchText={searchText}
                         handleWatchCloseTv={handleWatchCloseTv}
                         handleWatchOpenTv={handleWatchOpenTv}
                         watchTvVideo={watchTvVideo}
@@ -169,7 +169,7 @@ const TvShows = (props) => {
                             <Container>
                                 <Grid container spacing={1} alignItems="center">
                                     {tvData.length === 0 ? (
-                                        <NotFound notfound={props.searchText} />
+                                        <NotFound notfound={searchText} />
                                     ) : (
                                         tvData.filter(tfilterData).map((tvshows) => {
                                             return (
