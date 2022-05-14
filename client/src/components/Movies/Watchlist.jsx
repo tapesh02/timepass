@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Typography, makeStyles, Container, Grid } from "@material-ui/core";
-import { wList } from "../../Context";
+import { globalContext } from "../../Context/Context.js";
 import { Rating } from "@material-ui/lab";
 import { useHistory } from "react-router-dom";
 
@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Watchlist = () => {
     const classes = useStyles();
-    const { watchlist, setWatchlist } = useContext(wList);
+    const { watchlist, setWatchlist } = useContext(globalContext);
 
     const history = useHistory();
 
@@ -75,7 +75,6 @@ const Watchlist = () => {
                     credentials: "include",
                 });
                 const data = await res.json();
-                console.log(data);
                 if (!res.status === 200 || !data) {
                     const error = new Error(res.error);
                     throw error;

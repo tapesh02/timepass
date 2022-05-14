@@ -1,8 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
+import { globalContext } from "../../Context/Context.js";
 
 const Signout = () => {
     const history = useHistory();
+
+    const { setIsSignedIn } = useContext(globalContext);
     const OnSignout = async () => {
         try {
             const res = await fetch("/signout", {
@@ -14,6 +17,8 @@ const Signout = () => {
             });
 
             if (res.status === 200) {
+                setIsSignedIn(false);
+                console.log("logged out at   ", new Date().getTime());
                 history.push("/signin", { replace: true });
             }
         } catch (error) {

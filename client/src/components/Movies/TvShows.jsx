@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { Grid, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Typography, makeStyles, Container } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 import NotFound from "./NotFound";
-import { wList } from "../../Context.js";
+import { globalContext } from "../../Context/Context.js";
 import PageNav from "./PageNav";
 import FilterNav from "./FilterNav";
 import useGenres from "../../hooks/useGenres";
@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const TvShows = (props) => {
     const classes = useStyles();
-    const { watchlist, setWatchlist, page, setPage, numberOfPages, setNumberOfPages } = useContext(wList);
+    const { watchlist, setWatchlist, page, setPage, numberOfPages, setNumberOfPages } = useContext(globalContext);
     const [tvData, setTvData] = useState([]);
     const [genres, setGenres] = useState([]);
     const [selectedGenres, setSelectedGenres] = useState([]);

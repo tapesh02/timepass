@@ -3,7 +3,7 @@ import { Grid, Button, Card, CardActionArea, CardActions, CardContent, CardMedia
 import Rating from "@material-ui/lab/Rating";
 import "./Movies.css";
 import NotFound from "./NotFound";
-import { wList } from "../../Context.js";
+import { globalContext } from "../../Context/Context.js";
 import PageNav from "./PageNav.jsx";
 import FilterNav from "./FilterNav";
 import useGenres from "../../hooks/useGenres";
@@ -70,7 +70,7 @@ const Movies = (props) => {
     const [movieVideoId, setMovieVideoId] = useState([]);
     const [showTrending, setShowTrending] = useState(false);
 
-    const { watchlist, setWatchlist, page, setPage, numberOfPages, setNumberOfPages } = useContext(wList);
+    const { watchlist, setWatchlist, page, setPage, numberOfPages, setNumberOfPages } = useContext(globalContext);
     const gUrl = useGenres(selectedGenres);
 
     const filterData = (val) => {
@@ -125,7 +125,6 @@ const Movies = (props) => {
             <Grid
                 container
                 style={{
-                    backgroundColor: "black",
                     width: "100",
                     height: "100",
                     padding: "5",
@@ -159,7 +158,7 @@ const Movies = (props) => {
                             <Container style={{ marginBottom: "10px" }}>
                                 <Grid container spacing={1} alignItems="center">
                                     {movieData.length === 0 ? (
-                                        <NotFound />
+                                        <NotFound searchText={props.searchText} />
                                     ) : (
                                         movieData.filter(filterData).map((movie) => {
                                             return (

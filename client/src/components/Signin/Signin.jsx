@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect, useContext } from "react";
 import { Divider, FormControl, OutlinedInput, InputLabel, InputAdornment, Button, IconButton, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 //import reactRouterDom from 'react-router-dom';
@@ -9,6 +9,8 @@ import YouTubeIcon from "@material-ui/icons/YouTube";
 
 import youtube from "../../images/youtube.png";
 import { useHistory } from "react-router";
+
+import { globalContext } from "../../Context/Context.js";
 
 const useStyles = makeStyles((theme) => ({
     background_image: {
@@ -125,6 +127,7 @@ const useStyles = makeStyles((theme) => ({
 const Signin = () => {
     const classes = useStyles();
     const history = useHistory();
+    const { setIsSignedIn } = useContext(globalContext);
 
     const [email, setEmail] = useState("");
     const [cpassword, setCpassword] = useState("");
@@ -156,10 +159,11 @@ const Signin = () => {
             window.alert("Invalid Credentials");
         } else {
             window.alert("Sign in Successful");
+            setIsSignedIn(true);
+            console.log("logged in at   ", new Date().getTime());
             history.push("/movies");
         }
     };
-
     //useHistory is used to navigate from one component to other with useCallback
     const goToSignup = useCallback(() => {
         history.push("/signup");

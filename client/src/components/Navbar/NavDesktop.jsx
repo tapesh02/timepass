@@ -1,13 +1,17 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { NavLink } from "react-router-dom";
 
 import { Box, Button, Fade, IconButton, InputAdornment, makeStyles, Menu, MenuItem, TextField } from "@material-ui/core";
 
 import SearchIcon from "@material-ui/icons/Search";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
+import { globalContext } from "../../Context/Context.js";
+
 const useStyles = makeStyles((theme) => ({
     showDesktop: {
+        alignItems: "center",
+        gap: "5px",
         backgroundColor: "#0e0d0d",
         [theme.breakpoints.down("xs")]: {
             display: "none",
@@ -27,9 +31,11 @@ const useStyles = makeStyles((theme) => ({
         },
     },
 }));
-const NavDesktop = ({ handleChange, searchText, handleKeyPress, handleClick, openMenu, anchorEl, closeMenu, goToSignin, goToWatchlist, goToSignout }) => {
+const NavDesktop = ({ handleChange, searchText, handleKeyPress, handleSearch, openMenu, anchorEl, closeMenu }) => {
     const classes = useStyles();
     const open = Boolean(anchorEl);
+
+    const { isSignedIn } = useContext(globalContext);
 
     return (
         <>
@@ -45,29 +51,40 @@ const NavDesktop = ({ handleChange, searchText, handleKeyPress, handleClick, ope
                     onKeyPress={handleKeyPress}
                     InputProps={{
                         startAdornment: (
-                            <InputAdornment position="start" onClick={handleClick}>
+                            <InputAdornment position="start" onClick={handleSearch}>
                                 <SearchIcon style={{ color: "white", cursor: "pointer" }} />
                             </InputAdornment>
                         ),
                     }}
                 />
-                <Button color="inherit" component={Link} to="/home">
+                <Button component={NavLink} to="/home">
+                    {" "}
                     Home
                 </Button>
-                <Button color="inherit" component={Link} to="/movies">
+                <Button component={NavLink} to="/movies">
                     Movies
                 </Button>
-                <Button color="inherit" component={Link} to="/tvshows">
+                <Button component={NavLink} to="/tvshows">
                     Tv Shows
                 </Button>
 
                 <IconButton className="account_icon" onClick={openMenu}>
-                    <AccountCircleIcon fontSize="small" color="primary" />
+                    <AccountCircleIcon fontSize="medium" style={{ color: "white" }} />
                 </IconButton>
                 <Menu id="menu" anchorEl={anchorEl} keepMounted open={open} onClose={closeMenu} TransitionComponent={Fade}>
-                    <MenuItem onClick={goToSignin}> Sign In</MenuItem>
-                    <MenuItem onClick={goToWatchlist}> Watchlist</MenuItem>
-                    <MenuItem onClick={goToSignout}> Sign Out</MenuItem>
+                    {!isSignedIn ? (
+                        <MenuItem component={NavLink} to="/signin">
+                            Sign In
+                        </MenuItem>
+                    ) : (
+                        <MenuItem component={NavLink} to="/signout">
+                            Sign Out
+                        </MenuItem>
+                    )}
+
+                    <MenuItem component={NavLink} to="/watchlist">
+                        Watchlist
+                    </MenuItem>
                 </Menu>
             </Box>
         </>

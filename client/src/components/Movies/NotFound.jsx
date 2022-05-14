@@ -26,20 +26,11 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: "bold",
         textTransform: "capitalize",
         textAlign: "center",
-        color: "black",
-    },
-    progress: {
-        position: "absolute",
-        textJustify: "center",
-        margin: "0",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        color: "#356E44",
+        color: "white",
     },
 }));
 
-const NotFound = (props) => {
+const NotFound = ({ searchText }) => {
     const classes = useStyles();
 
     return (
@@ -47,8 +38,7 @@ const NotFound = (props) => {
             <section>
                 <div className={classes.notfoundimg}>
                     <div className={classes.mainBg}>
-                        <h1 className={classes.h1style}> Loading .. {props.notfound}</h1>
-                        <CircularProgress className={classes.progress} />
+                        <h1 className={classes.h1style}> Sorry... ! No result found for {searchText}</h1>
                     </div>
                 </div>
             </section>

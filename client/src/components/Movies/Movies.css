@@ -150,7 +150,6 @@ h6 {
 }
 
 .poster_bg {
-    /* background: url("https://i.pinimg.com/originals/7f/02/b6/7f02b66f6f433d9dc68d1c3980bcaef6.jpg"),   linear-gradient(to right, #ffffff, #e4e5e6, #cacccd, #afb3b4, #969b9b); */
     background-blend-mode: screen;
     right: 0%;
     top: 0%;

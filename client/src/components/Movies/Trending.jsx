@@ -3,7 +3,7 @@ import { Grid, Button, Card, CardActionArea, CardActions, CardContent, CardMedia
 import Rating from "@material-ui/lab/Rating";
 import "./Movies.css";
 import NotFound from "./NotFound";
-import { wList } from "../../Context.js";
+import { globalContext } from "../../Context/Context.js";
 import VideoModal from "./VideoModals/VideoModal";
 
 const useStyles = makeStyles((theme) => ({
@@ -73,7 +73,7 @@ const Trending = ({
 
     const [movieData, setMovieData] = useState([]);
     // const [watchTrendingVideo, setwatchTrendingVideo] = useState(false)
-    const { watchlist, setWatchlist, page, setNumberOfPages } = useContext(wList);
+    const { watchlist, setWatchlist, page, setNumberOfPages } = useContext(globalContext);
 
     const _category = `${window.location.pathname === "/movies" ? "movies" : "tv"}`;
     // const _id = `${window.location.pathname === "/movies" ? movieVideoId.id : tvId.id}`

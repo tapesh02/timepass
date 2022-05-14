@@ -1,18 +1,20 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
-import { AppBar, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Snackbar, Toolbar, Typography } from "@material-ui/core";
+import MuiAlert from "@material-ui/lab/Alert";
 
 import NavMobile from "./NavMobile";
 import NavDesktop from "./NavDesktop";
+
 import LogoComponent from "../Logo/LogoComponent";
 
-// const useStyles = makeStyles((theme) => ({}));
+import "./Navbar.css";
 
 const Navbar = ({ handleChange, searchText }) => {
-    // const classes = useStyles();
-
+    const history = useHistory();
     const [anchorEl, setAnchorEl] = useState(null);
+    const [showError, setShowError] = useState(false);
 
     const openMenu = (event) => {
         setAnchorEl(event.currentTarget);
@@ -21,35 +23,6 @@ const Navbar = ({ handleChange, searchText }) => {
     const closeMenu = () => {
         setAnchorEl(null);
     };
-    const history = useHistory();
-    const goToSignin = useCallback(() => {
-        history.push("/signin");
-        setAnchorEl(null);
-    }, [history]);
-
-    const signoutHistory = useHistory();
-    const goToSignout = useCallback(() => {
-        history.push("/signout");
-        setAnchorEl(null);
-    }, [signoutHistory]);
-
-    const watchhistory = useHistory();
-    const goToWatchlist = useCallback(() => {
-        watchhistory.push("/watchlist");
-        setAnchorEl(null);
-    }, [watchhistory]);
-
-    const moviesHistory = useHistory();
-    const goToMovies = useCallback(() => {
-        moviesHistory.push("/movies");
-        setAnchorEl(null);
-    }, [moviesHistory]);
-
-    const tvshowsHistory = useHistory();
-    const goTotvshows = useCallback(() => {
-        tvshowsHistory.push("/tvshows");
-        setAnchorEl(null);
-    }, [tvshowsHistory]);
 
     const handleKeyPress = (event) => {
         if (window.location.pathname === "/movies" && event.key === "Enter" && searchText !== "") {
@@ -57,17 +30,20 @@ const Navbar = ({ handleChange, searchText }) => {
         } else if (window.location.pathname === "/tvshows" && event.key === "Enter" && searchText !== "") {
             history.push("/tvshows");
         } else if (searchText === "" && event.key === "Enter") {
-            alert("Please enter text to search");
+            setShowError(true);
         }
     };
-    const handleClick = () => {
+    const handleSearch = () => {
         if (searchText === "") {
-            alert("Please enter text to search");
-        } else if (window.location.pathname === "/movies" && searchText !== "") {
-            goToMovies();
-        } else if (window.location.pathname === "/tvshows" && searchText !== "") {
-            goTotvshows();
+            setShowError(true);
+        } else if (window.location.pathname === "/home" && searchText !== "") {
+            history.push("/movies");
+            setAnchorEl(null);
         }
+    };
+
+    const Alert = (props) => {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
     };
 
     return (
@@ -84,18 +60,26 @@ const Navbar = ({ handleChange, searchText }) => {
                             handleChange={handleChange}
                             searchText={searchText}
                             handleKeyPress={handleKeyPress}
-                            handleClick={handleClick}
+                            handleSearch={handleSearch}
                             openMenu={openMenu}
                             anchorEl={anchorEl}
                             closeMenu={closeMenu}
-                            goToSignin={goToSignin}
-                            goToWatchlist={goToWatchlist}
-                            goToSignout={goToSignout}
                         />
                         <NavMobile />
                     </Toolbar>
                 </AppBar>
             </div>
+            <Snackbar
+                anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "center",
+                }}
+                open={showError}
+                onClose={setShowError}
+                autoHideDuration={3000}>
+                <Alert severity="error">Please enter search text !</Alert>
+            </Snackbar>
+            ;
         </>
     );
 };

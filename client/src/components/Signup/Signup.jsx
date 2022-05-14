@@ -1,15 +1,15 @@
 import React, { useState, useCallback } from "react";
+import { useHistory } from "react-router";
+
 import { Divider, FormControl, OutlinedInput, InputLabel, InputAdornment, Button, IconButton, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-//import reactRouterDom from 'react-router-dom';
-//import {Link} from 'react-router-dom';
+
 import EmailIcon from "@material-ui/icons/Email";
 import PersonIcon from "@material-ui/icons/Person";
 import LockIcon from "@material-ui/icons/Lock";
 import YouTubeIcon from "@material-ui/icons/YouTube";
 
 import youtube from "../../images/youtube.png";
-import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
     background_image: {
