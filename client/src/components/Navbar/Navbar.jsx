@@ -40,6 +40,7 @@ const Navbar = () => {
             setShowError(true);
         }
     };
+
     const handleSearch = () => {
         if (searchText === "") {
             setShowError(true);
@@ -68,7 +69,15 @@ const Navbar = () => {
                             anchorEl={anchorEl}
                             closeMenu={closeMenu}
                         />
-                        <NavMobile />
+                        <NavMobile
+                            handleChange={handleChange}
+                            searchText={searchText}
+                            handleKeyPress={handleKeyPress}
+                            handleSearch={handleSearch}
+                            openMenu={openMenu}
+                            anchorEl={anchorEl}
+                            closeMenu={closeMenu}
+                        />
                     </Toolbar>
                 </AppBar>
             </div>

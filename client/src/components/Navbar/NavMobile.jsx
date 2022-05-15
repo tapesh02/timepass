@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const NavMobile = () => {
+const NavMobile = ({ handleChange, searchText, handleKeyPress, handleSearch, openMenu, anchorEl, closeMenu }) => {
     const classes = useStyles();
     return (
         <>
